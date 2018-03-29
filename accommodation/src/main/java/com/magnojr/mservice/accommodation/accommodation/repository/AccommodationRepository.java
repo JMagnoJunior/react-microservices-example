@@ -9,5 +9,6 @@ import com.magnojr.mservice.accommodation.accommodation.model.Accommodation;
 
 @RepositoryRestResource(collectionResourceRel = "accommodation", path = "accommodations")
 public interface AccommodationRepository extends PagingAndSortingRepository<Accommodation, Long> {
-	List<Accommodation> findAll();
+	
+		
 }

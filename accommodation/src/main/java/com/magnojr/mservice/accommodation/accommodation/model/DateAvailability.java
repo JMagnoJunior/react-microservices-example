@@ -8,30 +8,42 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class DateAvailability {
 	
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	private Long id;
-	private String date;
+	private Long id;	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
+	@Temporal(TemporalType.DATE)
+	@NotNull
+	private Date date;
+	@NotNull
 	private Boolean avaliable;
 	//FIXME: Change this relation for manytomany
 	@ManyToOne
     @JoinColumn(name = "id_guest")
 	private Guest guest;
+	@ManyToOne
+    @JoinColumn(name = "id_schedule")
+	private Accommodation accommodation;
 	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getDate() {
+	}	
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public Boolean getAvaliable() {
@@ -46,6 +58,14 @@ public class DateAvailability {
 	public void setGuest(Guest guest) {
 		this.guest = guest;
 	}
+	public Accommodation getAccommodation() {
+		return accommodation;
+	}
+	public void setAccommodation(Accommodation accommodation) {
+		this.accommodation = accommodation;
+	}
+	
+	
 	
 	
 }

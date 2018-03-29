@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Address {
 
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
 	private String zipCode;

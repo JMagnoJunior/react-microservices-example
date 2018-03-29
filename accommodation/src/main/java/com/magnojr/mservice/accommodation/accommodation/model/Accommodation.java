@@ -1,6 +1,7 @@
 package com.magnojr.mservice.accommodation.accommodation.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,11 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Accommodation {
 
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
 	private String name;
@@ -23,9 +25,9 @@ public class Accommodation {
     @JoinColumn(name = "id_address")
 	private Address address;
 	private BigDecimal price;	
-	@ManyToOne
+	@OneToMany
     @JoinColumn(name = "id_schedule")	
-	private AccommodationSchedule schedule;
+	private List<DateAvailability> schedule;
 
 	public Long getId() {
 		return id;
@@ -67,13 +69,14 @@ public class Accommodation {
 		this.price = price;
 	}
 
-	public AccommodationSchedule getSchedule() {
+	public List<DateAvailability> getSchedule() {
 		return schedule;
 	}
 
-	public void setSchedule(AccommodationSchedule schedule) {
+	public void setSchedule(List<DateAvailability> schedule) {
 		this.schedule = schedule;
 	}
 
+	
 	
 }
