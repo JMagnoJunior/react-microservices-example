@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
 
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		auth.inMemoryAuthentication().withUser("user1").password(encoder.encode("123")).roles("USER");
+		auth.inMemoryAuthentication().withUser("user1").password(encoder.encode("123")).roles("SYSTEM");
 		auth.inMemoryAuthentication().withUser("admin").password(encoder.encode("123456")).roles("ADMIN");
 	}
 
