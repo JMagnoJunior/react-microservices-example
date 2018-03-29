@@ -1,24 +1,29 @@
 package com.magnojr.mservice.accommodation.accommodation.controller;
 
-import java.util.List;
+import java.util.Date;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.magnojr.mservice.accommodation.accommodation.model.Accommodation;
 import com.magnojr.mservice.accommodation.accommodation.service.AccommodationService;
 
-//@RestController
+@RestController
 public class AccommodationController {
-	
-//	@Autowired
+
+	@Autowired
 	AccommodationService service;
-	
-//	@RequestMapping("/accommodations")
-	public List<Accommodation> listAccommodations(){
-		List<Accommodation> list = service.listAccommodations();
-		return list;
+
+	@RequestMapping(path = "/accommodations/{id}/checkavailability/from/{start}/to/{end}", method = RequestMethod.GET)
+	public boolean checkAvailability(@PathVariable(value = "id")  Long id, @PathVariable(value = "start") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date start,
+			@PathVariable(value = "end") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date end) {
+		
+		return service.checkAvailability(id, start, end);
 	}
-	
+
 }

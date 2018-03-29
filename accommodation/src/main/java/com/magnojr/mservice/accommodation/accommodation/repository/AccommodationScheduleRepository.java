@@ -11,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.magnojr.mservice.accommodation.accommodation.model.DateAvailability;
 
-@RepositoryRestResource(collectionResourceRel = "schedule", path = "schedule")
+@RepositoryRestResource(collectionResourceRel = "schedule", path = "schedules")
 public interface AccommodationScheduleRepository
 		extends PagingAndSortingRepository<DateAvailability, Long>, CrudRepository<DateAvailability, Long> {
 

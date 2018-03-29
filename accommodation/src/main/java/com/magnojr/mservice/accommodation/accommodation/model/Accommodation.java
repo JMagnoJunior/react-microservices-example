@@ -17,6 +17,7 @@ public class Accommodation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
+//	private List<ImageAccommodation> images;
 	private String name;
 	@ManyToOne
     @JoinColumn(name = "id_location")
@@ -24,7 +25,7 @@ public class Accommodation {
 	@ManyToOne
     @JoinColumn(name = "id_address")
 	private Address address;
-	private BigDecimal price;	
+	
 	@OneToMany
     @JoinColumn(name = "id_schedule")	
 	private List<DateAvailability> schedule;
@@ -35,7 +36,15 @@ public class Accommodation {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
+	}	
+
+//	public List<ImageAccommodation> getImages() {
+//		return images;
+//	}
+//
+//	public void setImages(List<ImageAccommodation> images) {
+//		this.images = images;
+//	}
 
 	public String getName() {
 		return name;
@@ -61,21 +70,14 @@ public class Accommodation {
 		this.address = address;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public List<DateAvailability> getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(List<DateAvailability> schedule) {
-		this.schedule = schedule;
-	}
+//	public List<DateAvailability> getSchedule() {
+//		return schedule;
+//	}
+//
+//	public void setSchedule(List<DateAvailability> schedule) {
+//		this.schedule = schedule;
+//	}
 
 	
 	
