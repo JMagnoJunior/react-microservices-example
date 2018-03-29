@@ -25,17 +25,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
 
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		auth.inMemoryAuthentication().withUser("user1").password(encoder.encode("123")).roles("SYSTEM");
+		auth.inMemoryAuthentication().withUser("user1").password(encoder.encode("123")).roles("USER");
+		auth.inMemoryAuthentication().withUser("system").password(encoder.encode("123")).roles("SYSTEM");
 		auth.inMemoryAuthentication().withUser("admin").password(encoder.encode("123456")).roles("ADMIN");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/actuator/**").hasRole("ADMIN")
+		http.csrf().disable().authorizeRequests().antMatchers("/actuator/**").hasRole("ADMIN").antMatchers(HttpMethod.POST).hasAnyRole("ADMIN", "SYSTEM")
 		.and().httpBasic().realmName(REALM)
 				.authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		;
+		
 	}
 
 	/* To allow Pre-flight [OPTIONS] request from browser */
