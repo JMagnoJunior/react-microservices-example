@@ -15,7 +15,7 @@ import com.magnojr.mservice.accommodation.accommodation.model.DateAvailability;
 public interface AccommodationScheduleRepository
 		extends PagingAndSortingRepository<DateAvailability, Long>, CrudRepository<DateAvailability, Long> {
 
-	List<DateAvailability> findByAccommodationId(@Param("id") Long id);
+	List<DateAvailability> findByAccommodationId(@Param("id") Long id);	
 
 	List<DateAvailability> findByDateAndAccommodationId(
 			@Param("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date start, @Param("accommodation_id") Long id);

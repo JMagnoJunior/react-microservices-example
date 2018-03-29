@@ -13,8 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.lang.Nullable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -32,7 +30,7 @@ public class DateAvailability {
 	@ManyToOne
     @JoinColumn(name = "id_schedule")
 	private Accommodation accommodation;
-	
+	@NotNull
 	private BigDecimal price;
 	
 	public Long getId() {
