@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/actuator/**").hasRole("ADMIN").antMatchers(HttpMethod.POST).hasAnyRole("ADMIN", "SYSTEM")
+		http.csrf().disable().authorizeRequests().anyRequest().fullyAuthenticated().antMatchers("/actuator/**").hasRole("ADMIN").antMatchers(HttpMethod.POST).hasAnyRole("ADMIN", "SYSTEM")
 		.and().httpBasic().realmName(REALM)
 				.authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
