@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  accommodation-service:
+    build: 
+      context: ./accommodation      
+    volumes:
+      - ./accommodation/target:/home
+    ports:
+      - 8180:8080
+   
+
+  reservation-service:
+    build: ./reservation
+    ports:
+      - 8181:8081
+    volumes:
+      - ./reservation/target:/home   
+    environment:
+      - accommodation-service-uri=accommodation-service
+    depends_on: 
+      - accommodation-service
