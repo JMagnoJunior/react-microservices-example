@@ -18,7 +18,7 @@ var instance = axios.create({
 
 
 
-export  function searchAccommodation({ search_name } ){    
+export  function searchAccommodation({ search_name } ){ 
     return dispatch =>
     instance.get("accommodations/search/findByNameContainingIgnoreCase?name="+ search_name)
     .then(response => dispatch({

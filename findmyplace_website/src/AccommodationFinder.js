@@ -25,7 +25,9 @@ class AccommodationFinder extends Component {
     }
 
     handleSearchChange = (e) => {
-        this.setState({search_name: e.target.value});
+        
+        this.setState({search_name: e.target.value});        
+        
     }
 
     handleClickSearch = (dispatch, searchAccommodation) => {

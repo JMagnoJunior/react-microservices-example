@@ -8,14 +8,14 @@ export function SearchPanel(props){
     return(
         <div className="row">
             <div className="col">      
-                <form className="form-inline">
+                <div className="form-inline" >
                     
                     <div className="form-group">
-                        <input value={props.search_name} onChange={props.handle_search_name}/>            
+                        <input type="text" onKeyPress={props.add} value={props.search_name} onChange={props.handle_search_name} />            
                     </div>          
 
-                    <a onClick={props.add}  className="ml-1 form-group btn btn-info"  >Search</a>
-                </form>
+                    <a onClick={props.add} className="ml-1 form-group btn btn-info"  >Search</a>
+                </div>
             </div>        
         </div>
     )
