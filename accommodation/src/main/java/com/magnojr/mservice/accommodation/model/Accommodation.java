@@ -1,4 +1,4 @@
-package com.magnojr.mservice.accommodation.accommodation.model;
+package com.magnojr.mservice.accommodation.model;
 
 import java.math.BigDecimal;
 import java.util.List;

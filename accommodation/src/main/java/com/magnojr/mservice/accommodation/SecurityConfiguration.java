@@ -1,4 +1,4 @@
-package com.magnojr.mservice.accommodation.accommodation;
+package com.magnojr.mservice.accommodation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

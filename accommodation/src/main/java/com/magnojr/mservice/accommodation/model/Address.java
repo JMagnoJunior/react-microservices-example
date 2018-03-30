@@ -1,4 +1,4 @@
-package com.magnojr.mservice.accommodation.accommodation.model;
+package com.magnojr.mservice.accommodation.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

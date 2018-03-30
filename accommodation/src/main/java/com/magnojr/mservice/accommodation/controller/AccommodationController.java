@@ -1,4 +1,4 @@
-package com.magnojr.mservice.accommodation.accommodation.controller;
+package com.magnojr.mservice.accommodation.controller;
 
 import java.util.Date;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.magnojr.mservice.accommodation.accommodation.model.AvailabilityAndPrice;
-import com.magnojr.mservice.accommodation.accommodation.service.AccommodationService;
+import com.magnojr.mservice.accommodation.model.AvailabilityAndPrice;
+import com.magnojr.mservice.accommodation.service.AccommodationService;
 
 @RestController
 public class AccommodationController {

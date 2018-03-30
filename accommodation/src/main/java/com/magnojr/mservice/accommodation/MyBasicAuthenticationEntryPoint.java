@@ -1,4 +1,4 @@
-package com.magnojr.mservice.accommodation.accommodation;
+package com.magnojr.mservice.accommodation;
 
 import java.io.IOException;
 import java.io.PrintWriter;

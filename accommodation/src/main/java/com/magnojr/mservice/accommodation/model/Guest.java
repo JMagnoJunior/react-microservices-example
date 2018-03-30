@@ -1,3 +1,4 @@
+package com.magnojr.mservice.accommodation.model;
 //package com.magnojr.mservice.accommodation.accommodation.model;
 //
 //import javax.persistence.Entity;

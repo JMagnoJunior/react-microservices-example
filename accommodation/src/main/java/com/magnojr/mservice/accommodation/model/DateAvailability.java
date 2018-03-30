@@ -1,4 +1,4 @@
-package com.magnojr.mservice.accommodation.accommodation.model;
+package com.magnojr.mservice.accommodation.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -31,8 +31,20 @@ public class DateAvailability {
     @JoinColumn(name = "id_schedule")
 	private Accommodation accommodation;
 	@NotNull
-	private BigDecimal price;
+	private BigDecimal price;	
 	
+	public DateAvailability() {
+		super();
+	}
+	
+	public DateAvailability(@NotNull Date date, @NotNull Boolean avaliable, Accommodation accommodation,
+			@NotNull BigDecimal price) {
+		super();
+		this.date = date;
+		this.avaliable = avaliable;
+		this.accommodation = accommodation;
+		this.price = price;
+	}
 	public Long getId() {
 		return id;
 	}
