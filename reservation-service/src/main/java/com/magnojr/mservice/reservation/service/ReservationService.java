@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.magnojr.mservice.reservation.bean.AvailabilityAndPrice;
 import com.magnojr.mservice.reservation.clients.AccommodationServiceProxy;
+import com.magnojr.mservice.reservation.model.PeriodReserved;
+import com.magnojr.mservice.reservation.model.Reservation;
 import com.magnojr.mservice.reservation.repository.ReservationRepository;
-import com.magnojr.mservice.reservation.reservation.model.PeriodReserved;
-import com.magnojr.mservice.reservation.reservation.model.Reservation;
 
 @Service
 public class ReservationService {

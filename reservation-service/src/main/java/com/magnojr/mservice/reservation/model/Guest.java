@@ -1,4 +1,4 @@
-package com.magnojr.mservice.reservation.reservation.model;
+package com.magnojr.mservice.reservation.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

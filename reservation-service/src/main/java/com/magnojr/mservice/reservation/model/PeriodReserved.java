@@ -1,4 +1,4 @@
-package com.magnojr.mservice.reservation.reservation.model;
+package com.magnojr.mservice.reservation.model;
 
 import java.util.Date;
 

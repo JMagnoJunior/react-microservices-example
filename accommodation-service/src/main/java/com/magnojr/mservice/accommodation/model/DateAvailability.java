@@ -14,6 +14,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class DateAvailability {
@@ -28,7 +29,7 @@ public class DateAvailability {
 	@NotNull
 	private Boolean avaliable;
 	@ManyToOne
-    @JoinColumn(name = "id_schedule")
+    @JoinColumn(name = "id_accommodation")
 	private Accommodation accommodation;
 	@NotNull
 	private BigDecimal price;	

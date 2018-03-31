@@ -1,15 +1,12 @@
 package com.magnojr.mservice.accommodation.model;
 
-import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Accommodation {
@@ -18,18 +15,15 @@ public class Accommodation {
 	@Id
 	private Long id;
 	private String name;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_location")
 	private Location location;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_address")
 	private Address address;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_image")
 	private ImageAccommodation image;
-	@OneToMany
-    @JoinColumn(name = "id_schedule")	
-	private List<DateAvailability> schedule;
 
 	public Long getId() {
 		return id;
@@ -72,14 +66,5 @@ public class Accommodation {
 	}
 
 
-//	public List<DateAvailability> getSchedule() {
-//		return schedule;
-//	}
-//
-//	public void setSchedule(List<DateAvailability> schedule) {
-//		this.schedule = schedule;
-//	}
-
-	
 	
 }
