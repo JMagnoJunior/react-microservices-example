@@ -11,17 +11,19 @@ My free time is scarce then I will try to improve this project a litle at a time
 
 ### Overview
 Here is how this project is organized:
-/react-microservices-example
-    /accommodation-service    -> sprin boot service related to accommodation process
-    /file-service             -> utility service to handle images and files
-    /findmyplace_website      -> A website written in react to consume the other services
-    /reservation-service      -> spring boot service related to reserve process
-    docker-compose.yml        -> Docker config for a dev enviroment
+* /react-microservices-example
+  * /accommodation-service    -> sprin boot service related to accommodation process
+  * /file-service             -> utility service to handle images and files
+  * /findmyplace_website      -> A website written in react to consume the other services
+  * /reservation-service      -> spring boot service related to reserve process
+  * docker-compose.yml        -> Docker config for a dev enviroment
         
     
 ### Where do I start?
-I would recommend to take a look into the /accommodation-service first. Every service has his own README.md file.
-I will use it to describe 
+You can start wherever you want. Every project is supposed to be independent from each other.
+I would recommend to take a look into the /accommodation-service first, but every project/service has his own README.md file.
+I will use it to describe the service. 
+
 
 ### References
 https://12factor.net
