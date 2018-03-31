@@ -2,7 +2,7 @@
 import axios from "axios"
 
 var instance = axios.create({
-    baseURL: 'http://localhost:8080/',
+    baseURL:  process.env.REACT_APP_ACCOMMODATION_SERVICE_URI ,
     auth: {
         username: 'user1',
         password: '123'

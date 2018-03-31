@@ -18,6 +18,8 @@ class AccommodationFinder extends Component {
                 this.setState({...store.getState()} )
             }                        
         })
+
+    
     }
 
     componentWillUnmount() {
@@ -31,6 +33,7 @@ class AccommodationFinder extends Component {
     }
 
     handleClickSearch = (dispatch, searchAccommodation) => {
+        
         dispatch(searchAccommodation({search_name : this.state.search_name })). then(() => {
             this.setState({...store.getState()} )
         })
@@ -42,7 +45,7 @@ class AccommodationFinder extends Component {
           <div>
          <Provider store={store}>
          
-         <Fragment>         
+         <Fragment>                
             <SearchPanel search_name={this.state.search_name} 
                         handle_search_name={this.handleSearchChange} 
                         handle_click_search={this.handleClickSearch} />

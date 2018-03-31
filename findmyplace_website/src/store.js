@@ -2,7 +2,8 @@ import { createStore, applyMiddleware } from "redux"
 const { List } = require('immutable')
 
 const initialState = {
-    accommodations : []
+    accommodations : [],
+    image: new Image("")
 }
 
 
