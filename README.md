@@ -26,5 +26,6 @@ I will use it to describe the service.
 
 
 ### References
-https://12factor.net
-https://www.martinfowler.com/microservices
+
+* https://12factor.net
+* https://www.martinfowler.com/microservices
