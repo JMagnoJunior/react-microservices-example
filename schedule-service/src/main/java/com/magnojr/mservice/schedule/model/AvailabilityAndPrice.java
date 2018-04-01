@@ -26,14 +26,14 @@ public class AvailabilityAndPrice {
 		this.price = price;
 	}
 
-	public void addDatesInformed(List<DateAvailability> dates) {
-		List<DateAvailability> unavailable = dates.stream().filter((d) -> !d.getAvaliable() ).collect(Collectors.toList());
+	public void addDatesInformed(List<Schedule> dates) {
+		List<Schedule> unavailable = dates.stream().filter((d) -> !d.getAvaliable() ).collect(Collectors.toList());
 		if(unavailable.isEmpty()){
 			this.setAvailible(true);
 		}else{
 			this.setAvailible(false);
 		}
-		Optional<BigDecimal> price = dates.stream().map(DateAvailability::getPrice).reduce( (p1,p2) -> p1.add(p2) );
+		Optional<BigDecimal> price = dates.stream().map(Schedule::getPrice).reduce( (p1,p2) -> p1.add(p2) );
 		this.setPrice(price.get());		
 	}
 

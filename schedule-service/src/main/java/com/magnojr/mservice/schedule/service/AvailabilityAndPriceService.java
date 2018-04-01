@@ -8,19 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.magnojr.mservice.schedule.model.AvailabilityAndPrice;
-import com.magnojr.mservice.schedule.model.DateAvailability;
-import com.magnojr.mservice.schedule.repository.AccommodationScheduleRepository;
+import com.magnojr.mservice.schedule.model.Schedule;
+import com.magnojr.mservice.schedule.repository.ScheduleRepository;
 
 @Service
 public class AvailabilityAndPriceService {
 
 	@Autowired
-	AccommodationScheduleRepository repository;
+	ScheduleRepository repository;
 	
 	public AvailabilityAndPrice checkAvailabilityAndPrice(Long id, Date start, Date end) {
 		AvailabilityAndPrice result = new AvailabilityAndPrice();
 		
-		List<DateAvailability> dates = repository.findByDateBetweenAndAccommodationId(start, end, id);
+		List<Schedule> dates = repository.findByDateBetweenAndIdAccommodation(start, end, id);
 		
 		result.addDatesInformed(dates);
 

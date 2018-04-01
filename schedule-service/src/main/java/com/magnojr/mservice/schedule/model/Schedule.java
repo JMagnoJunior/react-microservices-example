@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class DateAvailability {
+public class Schedule {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
@@ -28,20 +28,20 @@ public class DateAvailability {
 	private Date date;
 	@NotNull
 	private Boolean avaliable;	
-	private Long accommodation_id;
+	private Long idAccommodation;
 	@NotNull
 	private BigDecimal price;	
 	
-	public DateAvailability() {
+	public Schedule() {
 		super();
 	}
 	
-	public DateAvailability(@NotNull Date date, @NotNull Boolean avaliable, Long accommodation,
+	public Schedule(@NotNull Date date, @NotNull Boolean avaliable, Long accommodation,
 			@NotNull BigDecimal price) {
 		super();
 		this.date = date;
 		this.avaliable = avaliable;
-		this.accommodation_id = accommodation;
+		this.idAccommodation = accommodation;
 		this.price = price;
 	}
 	public Long getId() {
@@ -64,12 +64,12 @@ public class DateAvailability {
 	}
 	
 
-	public Long getAccommodation_id() {
-		return accommodation_id;
+	public Long getIdAccommodation() {
+		return idAccommodation;
 	}
 
-	public void setAccommodation_id(Long accommodation_id) {
-		this.accommodation_id = accommodation_id;
+	public void setIdAccommodation(Long idAccommodation) {
+		this.idAccommodation = idAccommodation;
 	}
 
 	public BigDecimal getPrice() {
