@@ -30,3 +30,5 @@ It has some secure layer implementend as example. To access any service you will
 
 The AccommodationService has a method checkAvailabilityAndPrice . It will be used by /reserve service to check if some reservation is possible and how much it will cost. The other services will be used direct by the front-end.
 
+
+It is not completed yet. I have to put things like validation, exception handlers and swagger doc
