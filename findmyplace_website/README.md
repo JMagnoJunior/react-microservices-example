@@ -1,6 +1,6 @@
 # Find My Place - React Website
 
-I am not a really good front end programmer but I know something about React Js.
+I do not consider myself as a really good front end programmer, but still I know something about ReactJs, Javascript and Functional Programming.
 
 This project shows how to interacts with my back end services. It uses redux and immutables and it is totally based on a functional programming.
 
