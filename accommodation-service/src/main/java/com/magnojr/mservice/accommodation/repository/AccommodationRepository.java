@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.magnojr.mservice.accommodation.model.Accommodation;
 
 @CrossOrigin(origins = "http://localhost:3000")
-@RepositoryRestResource(collectionResourceRel = "accommodation", path = "accommodations")
+@RepositoryRestResource(collectionResourceRel = "accommodations", path = "accommodations")
 public interface AccommodationRepository extends PagingAndSortingRepository<Accommodation, Long> {
 		
 	List<Accommodation> findByNameContainingIgnoreCase(@Param("name") String name);
