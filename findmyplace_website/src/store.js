@@ -3,14 +3,13 @@ const { List } = require('immutable')
 
 const initialState = {
     accommodations : [],
-    image: new Image("")
 }
 
 
 
-function searchAccommodation(state, action){    
-    if(action.data.accommodation != state.accommodations){
-        return { ...state, accommodations: action.data.accommodation }
+function searchAccommodation(state, action){       
+    if(action.data.accommodations != state.accommodations){
+        return { ...state, accommodations: action.data.accommodations }
     }else{
         return { ...state}
     }

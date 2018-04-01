@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Accommodation {
@@ -14,6 +17,8 @@ public class Accommodation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
+	@NotNull
+	@Size(min=2, message="A accommodation's name should have at least 2 characters")
 	private String name;
 	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_location")
