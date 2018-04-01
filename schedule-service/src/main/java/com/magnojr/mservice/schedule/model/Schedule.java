@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class Schedule {
@@ -28,6 +29,7 @@ public class Schedule {
 	private Date date;
 	@NotNull
 	private Boolean avaliable;	
+	@JsonProperty(access=Access.WRITE_ONLY)
 	private Long idAccommodation;
 	@NotNull
 	private BigDecimal price;	
