@@ -20,3 +20,9 @@ services:
       - accommodation-service-uri=accommodation-service
     depends_on: 
       - accommodation-service
+
+  rabbitmq:
+  image: rabbitmq:management
+  ports:
+    - "5672:5672"
+    - "15672:15672"

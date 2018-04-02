@@ -28,6 +28,8 @@ public class Reservation {
 	private Long accommodation_id;
 	@JsonProperty(access = Access.READ_ONLY)
 	private BigDecimal totalPrice;
+	
+	private StatusReservation status = StatusReservation.INITIAL;
 
 	public Long getId() {
 		return id;
@@ -68,5 +70,20 @@ public class Reservation {
 	public void setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+
+	public StatusReservation getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusReservation status) {
+		this.status = status;
+	}
+
+	public void waitingConfirmation() {
+		this.status = StatusReservation.WAITING;
+		
+	}
+	
+	
 
 }

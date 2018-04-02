@@ -21,7 +21,9 @@ public class ScheduleResourceProcessor implements ResourceProcessor<Resource<Sch
 		// ServletUriComponentsBuilder.fromHttpUrl("").path("/{id}").buildAndExpand(scheduleResource.getContent().getIdAccommodation());
 
 		scheduleResource.add(new Link(accommodationResourceUrl + scheduleResource.getContent().getIdAccommodation(), "accommodation"));
-
+		
 		return scheduleResource;
 	}
+	
+
 }

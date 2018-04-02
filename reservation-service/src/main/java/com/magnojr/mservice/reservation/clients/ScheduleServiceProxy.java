@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.magnojr.mservice.reservation.FeignClientConfiguration;
 import com.magnojr.mservice.reservation.bean.AvailabilityAndPrice;
 
-@FeignClient(name = "accommodation", url = "${accommodation-service-uri}", configuration = FeignClientConfiguration.class)
-public interface AccommodationServiceProxy {
+@FeignClient(name = "schedule", url = "${schedule-service-uri}", configuration = FeignClientConfiguration.class)
+public interface ScheduleServiceProxy {
 
-	@RequestMapping(path = "/accommodations/{id}/checkavailability/from/{start}/to/{end}", method = RequestMethod.GET)
+	@RequestMapping(path = "/checkavailability/accommodations/{id}/from/{start}/to/{end}", method = RequestMethod.GET)
 	public AvailabilityAndPrice checkAvailability(@PathVariable(value = "id") Long id,
 			@PathVariable(value = "start") String start,
 			@PathVariable(value = "end")  String end);
+	
+	
 }

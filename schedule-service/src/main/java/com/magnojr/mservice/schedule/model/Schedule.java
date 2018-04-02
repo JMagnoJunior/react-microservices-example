@@ -80,6 +80,10 @@ public class Schedule {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+
+	public void reserved() {
+		this.avaliable = false;		
+	}
 	
 	
 	

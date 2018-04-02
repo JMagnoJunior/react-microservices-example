@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 
 public class AvailabilityAndPrice {
 
-	private boolean availible;
+	private boolean available;
 	private BigDecimal price;
 
-	public boolean isAvailible() {
-		return availible;
+	public boolean isAvailable() {
+		return available;
 	}
 
 	public void setAvailible(boolean availible) {
-		this.availible = availible;
+		this.available = availible;
 	}
 
 	public BigDecimal getPrice() {

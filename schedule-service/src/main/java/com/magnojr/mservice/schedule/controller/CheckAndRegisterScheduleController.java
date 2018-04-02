@@ -10,20 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.magnojr.mservice.schedule.model.AvailabilityAndPrice;
-import com.magnojr.mservice.schedule.service.AvailabilityAndPriceService;
-
+import com.magnojr.mservice.schedule.service.ScheduleService;
 
 @RestController
-public class AvailabilityAndPriceController {
+public class CheckAndRegisterScheduleController {
 
 	@Autowired
-	AvailabilityAndPriceService service;
-
-	@RequestMapping(path = "/checkavailability/accommodations/{id}/from/{start}/to/{end}", method = RequestMethod.GET)
-	public AvailabilityAndPrice checkAvailabilityAndPrice(@PathVariable(value = "id")  Long id, @PathVariable(value = "start") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date start,
+	ScheduleService service;
+	
+	@RequestMapping(path = "/checkandregisterschedule/accommodations/{id}/from/{start}/to/{end}", method = RequestMethod.POST)
+	public Boolean checkAvailabilityAndPrice(@PathVariable(value = "id")  Long id, @PathVariable(value = "start") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date start,
 			@PathVariable(value = "end") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date end) {
 		
-		return service.checkAvailabilityAndPrice(id, start, end);
+		return service.checkAndRegisterSchedule(id, start, end);
 	}
-
+	
 }
