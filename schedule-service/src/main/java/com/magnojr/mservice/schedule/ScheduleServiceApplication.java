@@ -1,5 +1,9 @@
 package com.magnojr.mservice.schedule;
 
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -7,7 +11,10 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -15,46 +22,50 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 
 @SpringBootApplication
 @EnableRabbit
+@EnableAutoConfiguration
 public class ScheduleServiceApplication implements RabbitListenerConfigurer {
 
-	public static  String EXCHANGE_NAME = "findmyplace-exchange";
-
-//	public  static final String QUEUE_GENERIC_NAME = "findmyplace";
-	public static final String QUEUE_SPECIFIC_NAME_SCHEDULE = "findmyplace-schedule";
-	public static final String QUEUE_SPECIFIC_NAME_RESERVATION = "findmyplace-reservation";
-	public  static final  String ROUTING_KEY = "reservation.confirm";
+	@Value("${exchange-name}")
+	private String exchangeName;
+	@Value("${queue-schedule}")
+	private String queueSchedule;
+	@Value("${queue-reservation}")
+	private String queueReservation;
+	@Value("${routing-key}")
+	private String routingKey;
+	
+//	public static  String EXCHANGE_NAME = "findmyplace-exchange";
+//
+//	public static final String QUEUE_SCHEDULE = "findmyplace-schedule";
+//	public static final String QUEUE_RESERVATION = "findmyplace-reservation";
+//	public  static final  String ROUTING_KEY = "reservation.confirm";
 
 	@Bean
 	public TopicExchange appExchange() {
-		return new TopicExchange(EXCHANGE_NAME);
+		return new TopicExchange(exchangeName);
 	}
 
-//	@Bean
-//	public Queue appQueueGeneric() {
-//		return new Queue(QUEUE_GENERIC_NAME);
-//	}
 
 	@Bean
-	public Queue appQueueSpecific() {
-		return new Queue(QUEUE_SPECIFIC_NAME_SCHEDULE);
+	public Queue appQueueSchedule() {
+		return new Queue(queueSchedule);
 	}
-//	
 	@Bean
-	public Queue appQueueReservationSpecific() {
-		return new Queue(QUEUE_SPECIFIC_NAME_RESERVATION);
+	public Queue appQueueReservation() {
+		return new Queue(queueReservation);
 	}
 
-//	@Bean
-//	public Binding declareBindingGeneric() {
-//		return BindingBuilder.bind(appQueueGeneric()).to(appExchange()).with(ROUTING_KEY);
-//	}
+
 
 	@Bean
 	public Binding declareBindingSpecific() {
-		return BindingBuilder.bind(appQueueSpecific()).to(appExchange()).with(ROUTING_KEY);
+		return BindingBuilder.bind(appQueueSchedule()).to(appExchange()).with(routingKey);
 	}
 	
-	
+	@Bean
+	public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+		return new Jackson2JsonMessageConverter();
+	}
 
 	@Bean
 	public MappingJackson2MessageConverter consumerJackson2MessageConverter() {
@@ -72,6 +83,13 @@ public class ScheduleServiceApplication implements RabbitListenerConfigurer {
 	public void configureRabbitListeners(final RabbitListenerEndpointRegistrar registrar) {
 		registrar.setMessageHandlerMethodFactory(messageHandlerMethodFactory());
 	}
+	
+
+	@PostConstruct
+	void started() {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+	}
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(ScheduleServiceApplication.class, args);

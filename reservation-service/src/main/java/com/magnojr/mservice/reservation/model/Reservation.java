@@ -83,6 +83,15 @@ public class Reservation {
 		this.status = StatusReservation.WAITING;
 		
 	}
+
+	public void confirm() {
+		this.status = StatusReservation.CONFIRMED;		
+	}
+
+	public void cancel() {
+		// TODO Auto-generated method stub
+		this.status = StatusReservation.CANCELLED;
+	}
 	
 	
 

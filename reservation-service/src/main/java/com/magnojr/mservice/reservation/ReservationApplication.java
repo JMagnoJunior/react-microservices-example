@@ -31,8 +31,8 @@ public class ReservationApplication implements RabbitListenerConfigurer {
 
 	public static final String EXCHANGE_NAME = "findmyplace-exchange";
 
-//	public static final String QUEUE_GENERIC_NAME = "findmyplace";
-	public static final String QUEUE_SPECIFIC_NAME_RESERVATION = "findmyplace-reservation";
+	public static final String QUEUE_RESERVATION = "findmyplace-reservation";
+	public static final String QUEUE_SCHEDULE = "findmyplace-schedule";
 	public static final String ROUTING_KEY = "reservation.wait";
 
 	@Bean
@@ -40,24 +40,19 @@ public class ReservationApplication implements RabbitListenerConfigurer {
 		return new TopicExchange(EXCHANGE_NAME);
 	}
 
-//	@Bean
-//	public Queue appQueueGeneric() {
-//		return new Queue(QUEUE_GENERIC_NAME);
-//	}
-
 	@Bean
-	public Queue appQueueSpecific() {
-		return new Queue(QUEUE_SPECIFIC_NAME_RESERVATION);
+	public Queue appQueueReservation() {
+		return new Queue(QUEUE_RESERVATION);
 	}
-
-//	@Bean
-//	public Binding declareBindingGeneric() {
-//		return BindingBuilder.bind(appQueueGeneric()).to(appExchange()).with(ROUTING_KEY);
-//	}
+	
+	@Bean
+	public Queue appQueueSchedule() {
+		return new Queue(QUEUE_SCHEDULE);
+	}
 
 	@Bean
 	public Binding declareBindingSpecific() {
-		return BindingBuilder.bind(appQueueSpecific()).to(appExchange()).with(ROUTING_KEY);
+		return BindingBuilder.bind(appQueueReservation()).to(appExchange()).with(ROUTING_KEY);
 	}
 
 	@Bean

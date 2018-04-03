@@ -11,6 +11,7 @@ public final class ReservationMessage implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Long reservationId;
 	private Long accommodationId;
 	private Date begin;
 	private Date end;
@@ -20,12 +21,19 @@ public final class ReservationMessage implements Serializable {
 	}
 
 	public ReservationMessage(Reservation reservation) {
+		this.reservationId = reservation.getId();
 		this.accommodationId = reservation.getAccommodation_id();
 		this.begin = reservation.getPeriodReserved().getBegin();
 		this.end = reservation.getPeriodReserved().getEnd();
 	}
 
+	public Long getReservationId() {
+		return reservationId;
+	}
 
+	public void setReservationId(Long reservationId) {
+		this.reservationId = reservationId;
+	}
 
 	public Long getAccommodationId() {
 		return accommodationId;

@@ -9,12 +9,21 @@ public final class ReservationMessage implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Long reservationId;
 	private Long accommodationId;
 	private Date begin;
 	private Date end;
 
 	// Default constructor is needed to deserialize JSON
 	public ReservationMessage() {
+	}
+
+	public Long getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(Long reservationId) {
+		this.reservationId = reservationId;
 	}
 
 	public Long getAccommodationId() {

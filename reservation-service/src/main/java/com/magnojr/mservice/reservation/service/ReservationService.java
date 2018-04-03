@@ -25,7 +25,6 @@ public class ReservationService {
 	@Autowired
 	private  RabbitTemplate rabbitTemplate;
 
-
 	@Autowired
 	ReservationMessageSender messageSender;
 
@@ -38,11 +37,11 @@ public class ReservationService {
 				df.format(period.getBegin()), df.format(period.getEnd()));
 		
 		if (verification.isAvailable()) {			
-			reservation.setTotalPrice(verification.getPrice());
-			// send reservation to queue to informe schedule about this reserve
-			messageSender.sendMessage(reservation);
+			reservation.setTotalPrice(verification.getPrice());			
 			reservation.waitingConfirmation();
 			result = repository.save(reservation);
+			// send reservation to queue to informe schedule about this reserve
+			messageSender.sendMessage(result);
 		} else {
 			// TODO: Throw exception
 			System.out.println("just a test");
