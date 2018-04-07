@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.magnojr.mservice.file.exception.StorageFileNotFoundException;
 import com.magnojr.mservice.file.service.StorageService;
 
 @Controller
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost"})
 public class ImageController {
 
 	private final StorageService storageService;

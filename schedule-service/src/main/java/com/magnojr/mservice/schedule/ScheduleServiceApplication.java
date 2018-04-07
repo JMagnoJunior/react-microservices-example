@@ -25,13 +25,13 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 @EnableAutoConfiguration
 public class ScheduleServiceApplication implements RabbitListenerConfigurer {
 
-	@Value("${exchange-name}")
+	@Value("${exchange.name}")
 	private String exchangeName;
-	@Value("${queue-schedule}")
+	@Value("${queue.schedule}")
 	private String queueSchedule;
-	@Value("${queue-reservation}")
+	@Value("${queue.reservation}")
 	private String queueReservation;
-	@Value("${routing-key}")
+	@Value("${routing.key}")
 	private String routingKey;
 	
 //	public static  String EXCHANGE_NAME = "findmyplace-exchange";

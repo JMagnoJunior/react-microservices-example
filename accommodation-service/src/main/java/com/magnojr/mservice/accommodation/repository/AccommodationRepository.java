@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.magnojr.mservice.accommodation.model.Accommodation;
 
-@CrossOrigin(origins = "http://localhost:3000")
+import io.swagger.annotations.Api;
+
+
+@Api(tags = "Accommodation")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost"})
 @RepositoryRestResource(collectionResourceRel = "accommodations", path = "accommodations")
 public interface AccommodationRepository extends PagingAndSortingRepository<Accommodation, Long> {
 		

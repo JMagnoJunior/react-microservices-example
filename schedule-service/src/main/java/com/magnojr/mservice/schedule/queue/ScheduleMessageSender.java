@@ -10,10 +10,10 @@ import com.magnojr.mservice.schedule.ScheduleServiceApplication;
 
 @Service
 public class ScheduleMessageSender {
-	@Value("${exchange-name}")
+	@Value("${exchange.name}")
 	private String exchangeName;
 	
-	@Value("${routing-key}")
+	@Value("${routing.key}")
 	private String routingKey;
 
     private final RabbitTemplate rabbitTemplate;

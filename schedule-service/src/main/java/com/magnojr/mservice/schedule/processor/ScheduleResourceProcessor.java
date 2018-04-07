@@ -11,7 +11,7 @@ import com.magnojr.mservice.schedule.model.Schedule;
 @Component
 public class ScheduleResourceProcessor implements ResourceProcessor<Resource<Schedule>> {
 
-	@Value("${accommodation-resource-url}")
+	@Value("${accommodation.resource.url}")
 	private String accommodationResourceUrl;
 
 	@Override

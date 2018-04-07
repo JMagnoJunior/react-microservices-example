@@ -13,7 +13,7 @@ public class ScheduleMessageListener {
 	@Autowired
 	ScheduleService service;
 
-	@RabbitListener(queues = "${queue-reservation}")
+	@RabbitListener(queues = "${queue.reservation}")
 	public void receiveMessage(final ReservationMessage reservationMessage) {
 		System.out.println(reservationMessage.toString());
 		service.checkAndRegisterSchedule(reservationMessage.getAccommodationId(), reservationMessage.getBegin(),

@@ -1,3 +1,5 @@
 FROM openjdk:8-jdk-alpine
-COPY ./target/reservation-service.jar /home/reservation-service.jar      
-ENTRYPOINT ["java","-jar","/home/reservation-service.jar"]
+COPY ./ /home/
+WORKDIR /home
+RUN ./mvnw clean package      
+ENTRYPOINT ["java","-jar","target/reservation-service.jar"]
