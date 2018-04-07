@@ -12,10 +12,11 @@ My free time is scarce then I will try to improve this project a litle at a time
 ### Overview
 Here is how this project is organized:
 * /react-microservices-example
-  * /accommodation-service    -> sprin boot service related to accommodation process
+  * /accommodation-service    -> sprin boot service related to accommodation process. It show some basics (but nice) features of spring boot.
   * /file-service             -> utility service to handle images and files
   * /findmyplace_website      -> A website written in react to consume the other services
-  * /reservation-service      -> spring boot service related to reserve process
+  * /reservation-service      -> spring boot service related to reserve process to show a case of eventual consistency. It will be used to make a reservation and inform the schedule about that event.
+  * /schedule-service         -> spring boot service related to schedule that will work together with the reservation. It shows a schedule of some accommodation.
   * docker-compose.yml        -> Docker config for a dev enviroment
         
     
