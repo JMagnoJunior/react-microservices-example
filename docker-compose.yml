@@ -20,6 +20,7 @@ services:
       - rabbitmq
     environment:
       - SERVER_PORT=8888
+      - spring_rabbitmq_host=rabbitmq
       
   rabbitmq:
     image: rabbitmq:management
@@ -42,12 +43,16 @@ services:
       - 3000:3000
     depends_on: 
       - zuul-api-gateway-server
+      - accommodation-service
 
   accommodation-service:
     build: 
       context: ./accommodation-service
     environment:
+      - SERVER_PORT=8080
       - schedule_resource_url=http://localhost:8765/schedule-service/schedules/
+    depends_on: 
+      - findmyplace-config-server
    
   reservation-service:
     build: ./reservation-service
