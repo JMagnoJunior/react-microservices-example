@@ -9,13 +9,14 @@ import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -27,32 +28,36 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 @EnableFeignClients("com.magnojr.mservice.reservation.clients")
 @ComponentScan({ "com.magnojr.mservice" })
 @EnableRabbit
+@EnableAutoConfiguration
 public class ReservationApplication implements RabbitListenerConfigurer {
 
-	public static final String EXCHANGE_NAME = "findmyplace-exchange";
-
-	public static final String QUEUE_RESERVATION = "findmyplace-reservation";
-	public static final String QUEUE_SCHEDULE = "findmyplace-schedule";
-	public static final String ROUTING_KEY = "reservation.wait";
+	@Value("${exchange.name}")
+	private String exchangeName;
+	@Value("${queue.schedule}")
+	private String queueSchedule;
+	@Value("${queue.reservation}")
+	private String queueReservation;
+	@Value("${routing.key}")
+	private String routingKey;
 
 	@Bean
 	public TopicExchange appExchange() {
-		return new TopicExchange(EXCHANGE_NAME);
+		return new TopicExchange(exchangeName);
 	}
 
 	@Bean
 	public Queue appQueueReservation() {
-		return new Queue(QUEUE_RESERVATION);
+		return new Queue(queueReservation);
 	}
 	
 	@Bean
 	public Queue appQueueSchedule() {
-		return new Queue(QUEUE_SCHEDULE);
+		return new Queue(queueSchedule);
 	}
 
 	@Bean
 	public Binding declareBindingSpecific() {
-		return BindingBuilder.bind(appQueueReservation()).to(appExchange()).with(ROUTING_KEY);
+		return BindingBuilder.bind(appQueueReservation()).to(appExchange()).with(routingKey);
 	}
 
 	@Bean
@@ -91,4 +96,6 @@ public class ReservationApplication implements RabbitListenerConfigurer {
 	void started() {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 	}
+	
+	
 }

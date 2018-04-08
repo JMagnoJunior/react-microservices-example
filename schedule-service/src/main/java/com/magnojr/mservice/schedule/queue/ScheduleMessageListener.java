@@ -15,7 +15,7 @@ public class ScheduleMessageListener {
 
 	@RabbitListener(queues = "${queue.reservation}")
 	public void receiveMessage(final ReservationMessage reservationMessage) {
-		System.out.println(reservationMessage.toString());
+
 		service.checkAndRegisterSchedule(reservationMessage.getAccommodationId(), reservationMessage.getBegin(),
 				reservationMessage.getEnd(), reservationMessage.getReservationId());
 	}

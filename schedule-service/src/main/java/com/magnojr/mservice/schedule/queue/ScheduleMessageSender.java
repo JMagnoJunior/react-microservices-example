@@ -1,12 +1,9 @@
 package com.magnojr.mservice.schedule.queue;
 
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import com.magnojr.mservice.schedule.ScheduleServiceApplication;
 
 @Service
 public class ScheduleMessageSender {
@@ -23,9 +20,7 @@ public class ScheduleMessageSender {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-
 	public void sendMessage(RegisterScheduleMessage message) {
-		
 		rabbitTemplate.convertAndSend(exchangeName, routingKey, message);
 	}
 }
