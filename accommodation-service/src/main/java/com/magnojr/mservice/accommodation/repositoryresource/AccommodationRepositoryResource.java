@@ -1,4 +1,4 @@
-package com.magnojr.mservice.accommodation.repository;
+package com.magnojr.mservice.accommodation.repositoryresource;
 
 import java.util.List;
 
@@ -15,10 +15,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 
-//@Api(tags = "Accommodation")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost"})
 @RepositoryRestResource(collectionResourceRel = "accommodations", path = "accommodations")
-public interface AccommodationRepository extends PagingAndSortingRepository<Accommodation, Long> {
+public interface AccommodationRepositoryResource extends PagingAndSortingRepository<Accommodation, Long> {
 	 @ApiOperation("Find some accommodations by name")
 	    @ApiImplicitParams({
 	        @ApiImplicitParam(name = "name", paramType = "query")

@@ -8,6 +8,13 @@ import org.springframework.stereotype.Component;
 
 import com.magnojr.mservice.accommodation.model.Accommodation;
 
+/**
+ * This processor will added in the accommodation resource a new link pointing
+ * for its schedule resource.
+ * 
+ * @author magnojr
+ *
+ */
 @Component
 public class AccommodationResourceProcessor implements ResourceProcessor<Resource<Accommodation>> {
 
