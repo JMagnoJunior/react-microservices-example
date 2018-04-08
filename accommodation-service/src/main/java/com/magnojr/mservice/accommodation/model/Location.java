@@ -5,12 +5,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+
+
+@ApiModel(description = "Where the accommodation is located")
 @Entity
 public class Location {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@ApiModelProperty(hidden=true)
 	private Long id;
 	private String latitude;
 	private String longitude;

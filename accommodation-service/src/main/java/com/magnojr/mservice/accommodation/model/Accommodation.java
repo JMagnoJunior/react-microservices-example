@@ -10,17 +10,21 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiKeyAuthDefinition;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "Accommodation")
+@ApiModel(description = "This is a model for some accommodation")
 @Entity
 public class Accommodation {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@ApiModelProperty(hidden=true)
 	private Long id;
 	@NotNull
 	@Size(min=2, message="A accommodation's name should have at least 2 characters")
+	@ApiModelProperty(required=true, notes="at least 2 characters")
 	private String name;
 	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_location")
@@ -29,7 +33,7 @@ public class Accommodation {
     @JoinColumn(name = "id_address")
 	private Address address;
 	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "id_image")
+    @JoinColumn(name = "id_image")	
 	private ImageAccommodation image;
 
 	public Long getId() {
