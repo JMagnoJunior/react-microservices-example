@@ -17,7 +17,8 @@ Here is how this project is organized:
   * /findmyplace_website       -> A website written in react to consume the other services
   * /reservation-service       -> spring boot service related to reserve process to show a case of eventual consistency. It will be used to make a reservation and inform the schedule about that event.
   * /schedule-service          -> spring boot service related to schedule that will work together with the reservation. It shows a schedule of some accommodation.
-  * /findmyplace-config-server -> It is a config server for my services. I will show a example of how to use it in my cloud.
+  * /findmyplace-config-server -> This is a config server for my services. I will show a example of how to use it in my cloud.
+  * /zuul-api-gateway-server   -> This is the api gateway. For now it has a basic security layer (for a real scenario would be better something a bit sophisticated) and it generates a simple access log as example. 
   * docker-compose.yml         -> Docker config for a dev enviroment
         
     
@@ -25,6 +26,14 @@ Here is how this project is organized:
 You can start wherever you want. Every project is supposed to be independent from each other.
 I would recommend to take a look into the /accommodation-service first, but every project/service has his own README.md file.
 I will use it to describe the service. 
+
+### How to test it?
+This project will run inside a docker.
+
+inside the /react-microservices-example folder:
+$ docker-compose up --build
+
+Sorry, but this process will take a loooooo...ooonng time but with some luck you will be able to run it without errors.
 
 
 ### References
