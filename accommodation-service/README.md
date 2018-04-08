@@ -1,7 +1,10 @@
 # Accommodation Service
 
 ### Introduction
-If you need to find a accommodation, to take a look in its prices or locations, then here is the right place.
+In this section I will present some basic concepts of a rest service.
+
+### About the service
+If you need to find a accommodationthen here is the right place.
 
 Here some mains functions presented by this component:
 accommodation resource:
@@ -11,24 +14,27 @@ accommodation resource:
  * **GET /accommodations/search/findByNameContainingIgnoreCase{?name}** -> find accommodation by name
  * **GET /accommodations/{id}/checkavailability/from/{start}/to/{end}** -> check availability in a accommodation for a given period.
  
-schedule resource:
- * **GET /schedules/search/findByDateBetweenAndAccommodationId{?start,end,accommodation_id}** -> list the schedule in a accommodation for a period
+ You can check the possibilities accessing the url: **/accommodations/search** 
  
-... you can check the possibilities accessing the url: **/accommodations/search** or **/schedules/search**
- 
-It is possible to create, update or delete a resource in a restfull way: 
+It is possible to create, update or delete this resource in a restfull way: 
 * if you want to create a new accommodation just POST /accommodations
-* if you want to create a new schedule just POST /schedules
-* if you want to put this schedulle in some accommodation just PUT /schedules/{id}/accommodations with the payload as a URI of the desired accommodation resource /accommodation/{id} and Content-type=text/uri-list (like this: http://www.baeldung.com/spring-data-rest-relationships)
- 
- 
-### Technical Informations 
-  
-Spring boot is really impressive. I was able to build many useful functionality using only two **@RepositoryRestResource** and one **@Controller**.
- 
-It has some secure layer implementend as example. To access any service you will have to use a Basic Auth.
+* if you want to update a existent accommodation just PUT /accommodations
+* if you want to delete a existent accommodation just DELETE /accommodations
 
-The AccommodationService has a method checkAvailabilityAndPrice . It will be used by /reserve service to check if some reservation is possible and how much it will cost. The other services will be used direct by the front-end.
+It worths to mention that the schedule informations for a accommodation can be found in another service, but there is a strong relation between them. That is how to create a schedule for a accommodation:
+* 1 - Create your accommodation with POST /accommodations/
+* 2 - Create a new schedule with POST /schedules
+* 3 - Update the schedule in the accommodation with PUT /schedules/{id}/accommodations where the payload is a URI of the desired accommodation resource (eg. /accommodation/{id}) and the Content-type=text/uri-list (link details: http://www.baeldung.com/spring-data-rest-relationships)
+ 
+You could check everything in the swagger-ui application embedded in this service on a standalone version, but it won't be visible if you use my docker-compose file. I hid the services behind a gateway =)
+ 
+### Features and Comments
+* Spring boot is really impressive. Just one **@RepositoryRestResource** was enough to build this service.
+* It was added a new method for the RepositorRestResource called findByNameContainingIgnoreCase with some annotations for swagger.
+* The Accommodation returned by the RepositorRestResource is incomplete and that's why I had to add a AccommodationResourceProcessor. To keep the things HATEOAS I added a link to all the schedules of some accommodation. 
+* Accommodation class shows a simple validations - The name has to have at least two characters
+* RestConfiguration is a good way to customize the RepositoryRestResource. In this case the pagination will have max size = 15
+* Every exception in this service will be receive the same treatment. It will return a custom ExceptionResponse.
+* This service relies on a centralized configuration service.
+* There are many other things enable in this project that is not visible at a first glance. Things like actuators that can show us usefull informations for a microservice environment like  health, info, metrics and so on.  It is possible to customize health, but I think it is not necessary for this scenario.
 
-
-It is not completed yet. I have to put things like validation, exception handlers and swagger doc
