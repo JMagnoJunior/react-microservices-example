@@ -23,6 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @ComponentScan({ "com.magnojr.mservice" })
 @EnableSwagger2
+@EnableAutoConfiguration
 @Import(SpringDataRestConfiguration.class)
 public class AccommodationApplication {
 
