@@ -11,7 +11,7 @@ import com.magnojr.mservice.accommodation.model.Accommodation;
 @Component
 public class AccommodationResourceProcessor implements ResourceProcessor<Resource<Accommodation>> {
 
-	@Value("${schedule-resource-url}")
+	@Value("${schedule.resource.url}")
 	private String scheduleResourceUrl;
 
 	private final String SEARCH_ACCOMMODATION_PATH = "search/findByIdAccommodation?id_accommodation=";

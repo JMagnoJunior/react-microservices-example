@@ -33,35 +33,27 @@ public class ScheduleServiceApplication implements RabbitListenerConfigurer {
 	private String queueReservation;
 	@Value("${routing.key}")
 	private String routingKey;
-	
-//	public static  String EXCHANGE_NAME = "findmyplace-exchange";
-//
-//	public static final String QUEUE_SCHEDULE = "findmyplace-schedule";
-//	public static final String QUEUE_RESERVATION = "findmyplace-reservation";
-//	public  static final  String ROUTING_KEY = "reservation.confirm";
 
 	@Bean
 	public TopicExchange appExchange() {
 		return new TopicExchange(exchangeName);
 	}
 
-
 	@Bean
 	public Queue appQueueSchedule() {
 		return new Queue(queueSchedule);
 	}
+
 	@Bean
 	public Queue appQueueReservation() {
 		return new Queue(queueReservation);
 	}
 
-
-
 	@Bean
 	public Binding declareBindingSpecific() {
 		return BindingBuilder.bind(appQueueSchedule()).to(appExchange()).with(routingKey);
 	}
-	
+
 	@Bean
 	public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
 		return new Jackson2JsonMessageConverter();
@@ -83,13 +75,11 @@ public class ScheduleServiceApplication implements RabbitListenerConfigurer {
 	public void configureRabbitListeners(final RabbitListenerEndpointRegistrar registrar) {
 		registrar.setMessageHandlerMethodFactory(messageHandlerMethodFactory());
 	}
-	
 
 	@PostConstruct
 	void started() {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 	}
-	
 
 	public static void main(String[] args) {
 		SpringApplication.run(ScheduleServiceApplication.class, args);
