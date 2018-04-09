@@ -1,7 +1,7 @@
 # react-microservices-example
 
 ### Introduction
-In this project I will try to show some concepts and techonologies related to microservices. This is a example of a booking website with a react app,  some spring boot and NodeJs services.
+In this project I will try to show some concepts and techonologies related to microservices. This is a example of a booking website with a react app,  spring boot and NodeJs services.
 My main motivation for this project is to have something in my portifolio to show to anyone interested in my job. Furthermore, I think it can be usefull for anyone interested in exchange some knoledge about microservice archtecture. I will try to show how to build a website based on microservices but let me know if you find something to improve in this code.
 
 My free time is scarce then I will try to improve this project a litle at a time. I hope to complete this endeavor sometime in the future but for now I am trying to optimize my time. My mission is just to show how a fancy microservice enviroment looks like and to present some tools and features that can be useful to build this environment.
