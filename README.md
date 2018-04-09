@@ -33,7 +33,7 @@ inside the /react-microservices-example folder:
 $ docker-compose up --build
 
 ( Sorry, but this process will take a loooooo...ooonng time but with some luck you will be able to run it without errors.
-I do not really recommend to install all this project for now. It will spend a lot of time and the only visible interface will be a simple accommodation search written in react.)
+I do not really recommend to install all this project for now. It will spend a lot of time and the only visible interface will be a simple accommodation search written in react. I will separate all this projects from the same docker-compose file soon.)
 
 
 ### References
