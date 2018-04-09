@@ -11,16 +11,6 @@ services:
       - zuul_routes_schedule-service_url=http://schedule-service:8080
       - zuul_routes_reservation-service_url=http://reservation-service:8080
       - zuul_routes_file-service_url=http://file-service:8080    
-
-  findmyplace-config-server:
-    build: ./findmyplace-config-server
-    ports:
-      - 8888:8888
-    depends_on: 
-      - rabbitmq
-    environment:
-      - SERVER_PORT=8888
-      - spring_rabbitmq_host=rabbitmq
       
   rabbitmq:
     image: rabbitmq:management
@@ -33,6 +23,17 @@ services:
     ports: 
       - 8080:8080
 
+  findmyplace-config-server:
+    build: ./findmyplace-config-server
+    ports:
+      - 8888:8888
+    depends_on: 
+      - rabbitmq
+    environment:
+      - SERVER_PORT=8888
+      - spring_rabbitmq_host=rabbitmq
+    restart: on-failure
+
   findmyplace-website:
     build:
       context: ./findmyplace_website
@@ -44,6 +45,7 @@ services:
     depends_on: 
       - zuul-api-gateway-server
       - accommodation-service
+    restart: on-failure
 
   accommodation-service:
     build: 
@@ -53,17 +55,22 @@ services:
       - schedule_resource_url=http://localhost:8765/schedule-service/schedules/
     depends_on: 
       - findmyplace-config-server
+    restart: on-failure
    
   reservation-service:
     build: ./reservation-service
     environment:
         - SERVER_PORT=8080
         - spring_rabbitmq_host=rabbitmq
+        - spring_cloud_config_uri=http://findmyplace-config-server:8888
         - schedule_service_uri=schedule-service:8080
         - accommodation_service_uri=accommodation-service:8080
         - accommodation_resource_url=http://accommodation-service:8080/accommodations/
     depends_on: 
-      - rabbitmq
+      - findmyplace-config-server
+    ports:
+      - 9090:8080
+    restart: on-failure
   
   schedule-service:
     build: ./schedule-service
@@ -74,10 +81,11 @@ services:
       - accommodation_service_uri=accommodation-service:8080
       - accommodation_resource_url=http://accommodation-service:8080/accommodations/
     depends_on: 
-      - rabbitmq
       - findmyplace-config-server
+    restart: on-failure
   
   file-service:
     build: ./file-service
     environment:
       - SERVER_PORT=8080
+    restart: on-failure
