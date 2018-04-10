@@ -26,3 +26,11 @@ export  function searchAccommodation({ search_name } ){
         data:response.data._embedded} 
     ))
 }
+
+export function getScheduleAccommodation({uri_schedules}){
+    return dispatch =>
+    instance.get("http://localhost:8765/schedule-service/schedules/search/findByIdAccommodation?id_accommodation=1").then(response => dispatch({
+        type: "GET_SCHEDULES",
+        data:response.data._embedded
+    }))
+}

@@ -16,10 +16,15 @@ function searchAccommodation(state, action){
     
 }
 
+function getScheduleAccommodation(state, action){
+    console.log(action.data)
+}
+
 
 function reducer(state = initialState, action){    
     switch (action.type){
         case "SEARCH_ACCOMMODATION": return searchAccommodation(state, action);
+        case "GET_SCHEDULES": return getScheduleAccommodation(state, action)
         default: return state;
     }
 }
