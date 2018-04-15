@@ -26,7 +26,7 @@ public class ScheduleService {
 		AvailabilityAndPrice result = new AvailabilityAndPrice();
 		
 		List<Schedule> dates = repository.findByDateBetweenAndIdAccommodation(start, end, id);
-		
+		result.validate(start, end, dates);
 		result.addDatesInformed(dates);
 
 		return result;

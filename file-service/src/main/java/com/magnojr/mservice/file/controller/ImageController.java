@@ -24,7 +24,7 @@ import com.magnojr.mservice.file.exception.StorageFileNotFoundException;
 import com.magnojr.mservice.file.service.StorageService;
 
 @Controller
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost"})
+//@CrossOrigin(origins = {"http://localhost:3000", "http://localhost"})
 public class ImageController {
 
 	private final StorageService storageService;

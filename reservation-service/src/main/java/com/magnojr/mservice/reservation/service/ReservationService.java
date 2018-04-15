@@ -30,11 +30,11 @@ public class ReservationService {
 	@Autowired
 	ReservationMessageSender messageSender;
 
-	public Reservation reserve(Reservation reservation) {
+	public Reservation reserve(Reservation reservation, Long accommodationId) {
 		Reservation result = null;
 		PeriodReserved period = reservation.getPeriodReserved();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		AvailabilityAndPrice verification = scheduleService.checkAvailability(reservation.getAccommodation_id(),
+		AvailabilityAndPrice verification = scheduleService.checkAvailability(accommodationId,
 				df.format(period.getBegin()), df.format(period.getEnd()));
 
 		if (verification.isAvailable()) {
@@ -42,8 +42,8 @@ public class ReservationService {
 			reservation.waitingConfirmation();
 			result = repository.save(reservation);
 			// send reservation to queue to informe schedule about this reserve
-			messageSender.sendMessage(result);
-		} else {
+			messageSender.sendMessage(result, accommodationId);
+		} else {			
 			throw new ReservationException();
 		}
 		return result;

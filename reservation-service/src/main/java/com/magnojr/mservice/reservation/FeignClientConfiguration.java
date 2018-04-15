@@ -11,4 +11,16 @@ public class FeignClientConfiguration {
 	public BasicAuthRequestInterceptor basicAuthRequestInterceptor() {
 		return new BasicAuthRequestInterceptor("system", "123");
 	}
+	
+//	@Bean
+//	public FeignFormatterRegistrar localDateFeignFormatterRegistrar() {
+//	    return new FeignFormatterRegistrar() {
+//	        @Override
+//	        public void registerFormatters(FormatterRegistry formatterRegistry) {
+//	            DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+//	            registrar.setUseIsoFormat(true);	           
+//	            registrar.registerFormatters(formatterRegistry);
+//	        }
+//	    };
+//	}
 }

@@ -1,4 +1,4 @@
-package com.magnojr.mservice.reservation.exception;
+package com.magnojr.mservice.schedule.exception;
 
 import java.util.Date;
 
@@ -10,15 +10,15 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class ReservationResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
+public class ScheduleResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(Exception.class)
-	public final ResponseEntity<Object> handleAllExceptions(Exception e, WebRequest request){
+	public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception e, WebRequest request){
 		
 		e.printStackTrace();
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), e.getMessage(), request.getDescription(false));
 				
-		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	

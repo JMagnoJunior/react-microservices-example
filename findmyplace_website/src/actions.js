@@ -9,14 +9,6 @@ var instance = axios.create({
     },
     
   });
-// export  function addAccommodation(accommodation){
-//     return {
-//         type: "ADD_ACCOMMODATION",
-//         accommodation: accommodation
-//     }
-// }
-
-
 
 export  function searchAccommodation({ search_name } ){ 
     return dispatch =>
@@ -27,10 +19,22 @@ export  function searchAccommodation({ search_name } ){
     ))
 }
 
-export function getScheduleAccommodation({uri_schedules}){
+export function getScheduleAccommodation({accommodation, uri_schedules}){
     return dispatch =>
-    instance.get("http://localhost:8765/schedule-service/schedules/search/findByIdAccommodation?id_accommodation=1").then(response => dispatch({
+    instance.get(uri_schedules.href).then(response => dispatch({
         type: "GET_SCHEDULES",
-        data:response.data._embedded
+        data:{ "schedule":  response.data._embedded, "accommodation": accommodation }
+    }))
+}
+
+export function confirmReserve({reservation, uri_reserve}){
+    console.log(reservation)
+    return dispatch => 
+    instance.post(uri_reserve.href, JSON.stringify(reservation), {
+        headers: { 'Content-Type': 'application/json' }
+    }
+ ).then(response => dispatch({
+        type: "RESERVE",
+        data:{"reservation": response.data}
     }))
 }

@@ -1,5 +1,5 @@
 
-INSERT INTO SCHEDULE(id,date,avaliable,  id_accommodation, price) values(1,'2018-04-01',false, 1, 100);
+INSERT INTO SCHEDULE(id,date,avaliable,  id_accommodation, price) values(1,'2018-04-01',true, 1, 100);
 INSERT INTO SCHEDULE(id,date,avaliable,  id_accommodation, price) values(2,'2018-04-02',true, 1, 100);
 INSERT INTO SCHEDULE(id,date,avaliable,  id_accommodation, price) values(3,'2018-04-03',true, 1, 100);
 INSERT INTO SCHEDULE(id,date,avaliable,  id_accommodation, price) values(4,'2018-04-04',true, 1, 100);

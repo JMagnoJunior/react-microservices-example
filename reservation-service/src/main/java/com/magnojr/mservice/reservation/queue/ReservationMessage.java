@@ -20,9 +20,9 @@ public final class ReservationMessage implements Serializable {
 	public ReservationMessage() {
 	}
 
-	public ReservationMessage(Reservation reservation) {
+	public ReservationMessage(Reservation reservation, Long accommodationid) {
 		this.reservationId = reservation.getId();
-		this.accommodationId = reservation.getAccommodation_id();
+		this.accommodationId = accommodationid;
 		this.begin = reservation.getPeriodReserved().getBegin();
 		this.end = reservation.getPeriodReserved().getEnd();
 	}

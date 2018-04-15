@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost"})
+//@CrossOrigin(origins = {"http://localhost:3000", "http://localhost"})
 @RepositoryRestResource(collectionResourceRel = "accommodations", path = "accommodations")
 public interface AccommodationRepositoryResource extends PagingAndSortingRepository<Accommodation, Long> {
 	 @ApiOperation("Find some accommodations by name")

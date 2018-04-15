@@ -25,6 +25,7 @@ public class Reservation {
 	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "id_period_reserved")
 	private PeriodReserved periodReserved;
+	@JsonProperty(access=Access.READ_ONLY)
 	private Long accommodation_id;
 	@JsonProperty(access = Access.READ_ONLY)
 	private BigDecimal totalPrice;

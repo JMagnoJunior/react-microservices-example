@@ -1,9 +1,12 @@
 package com.magnojr.mservice.schedule.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import com.magnojr.mservice.schedule.exception.ScheduleException;
 
 public class AvailabilityAndPrice {
 
@@ -35,6 +38,20 @@ public class AvailabilityAndPrice {
 		}
 		Optional<BigDecimal> price = dates.stream().map(Schedule::getPrice).reduce( (p1,p2) -> p1.add(p2) );
 		this.setPrice(price.get());		
+	}
+
+	public void validate(Date start, Date end, List<Schedule> schedules) throws ScheduleException {
+		
+		
+		List<Date> dates = schedules.stream().map((d) -> ( d.getDate() ) ).collect(Collectors.toList());
+
+		if (!dates.contains(start)){
+			throw new ScheduleException("invalid start date");
+		}
+		if(!dates.contains(end)){
+			throw new ScheduleException("invalid end date");
+		}		
+		
 	}
 
 }

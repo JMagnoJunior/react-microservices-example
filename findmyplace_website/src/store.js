@@ -17,14 +17,28 @@ function searchAccommodation(state, action){
 }
 
 function getScheduleAccommodation(state, action){
-    console.log(action.data)
+    
+    var list = List(state.accommodations);    
+    var accommodations = list.update(
+        list.findIndex((item) => { 
+            return JSON.stringify(item) === JSON.stringify(action.data.accommodation)    
+        }), 
+        (item) => {
+            item.schedules = action.data.schedule.schedule;
+            item.show_details = true;
+            return item
+        }
+    );        
+    return Object.assign({}, state, {accommodations: accommodations.toArray()})
 }
+
 
 
 function reducer(state = initialState, action){    
     switch (action.type){
         case "SEARCH_ACCOMMODATION": return searchAccommodation(state, action);
-        case "GET_SCHEDULES": return getScheduleAccommodation(state, action)
+        case "GET_SCHEDULES": return getScheduleAccommodation(state, action);
+        case "RESERVE": return state;
         default: return state;
     }
 }

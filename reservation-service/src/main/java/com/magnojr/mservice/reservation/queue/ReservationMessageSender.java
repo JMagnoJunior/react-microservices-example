@@ -24,8 +24,8 @@ public class ReservationMessageSender {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-	public void sendMessage(Reservation reservation) {
-		final ReservationMessage message = new ReservationMessage(reservation);
+	public void sendMessage(Reservation reservation, Long accommodationid) {
+		final ReservationMessage message = new ReservationMessage(reservation, accommodationid);
 		rabbitTemplate.convertAndSend(exchangeName, routingKey, message);
 	}
 }

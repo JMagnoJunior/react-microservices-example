@@ -9,7 +9,7 @@ import {searchAccommodation} from "./actions"
 class AccommodationFinder extends Component {
     constructor(){
         super();
-        this.state = { search_name : "",  show_details: false, ...store.getState()} 
+        this.state = { search_name : "",  ...store.getState()} 
     }
 
     componentWillMount() {
@@ -18,8 +18,6 @@ class AccommodationFinder extends Component {
                 this.setState({...store.getState()} )
             }                        
         })
-
-    
     }
 
     componentWillUnmount() {
@@ -40,10 +38,10 @@ class AccommodationFinder extends Component {
         
     }
 
-    handleClickDetails = (dispatch,uri_schedules, getScheduleAccommodation) => {
+    handleClickDetails = (dispatch,accommodation, getScheduleAccommodation) => {
         
-        dispatch(getScheduleAccommodation({uri_schedules : uri_schedules})).then( ()=> {
-            this.setState({show_details: true, ...store.getState()})
+        dispatch(getScheduleAccommodation({accommodation: accommodation, uri_schedules : accommodation._links.schedules})).then( ()=> {            
+            this.setState({ ...store.getState()})
         })
         
     }
@@ -57,7 +55,7 @@ class AccommodationFinder extends Component {
             <SearchPanel search_name={this.state.search_name} 
                         handle_search_name={this.handleSearchChange} 
                         handle_click_search={this.handleClickSearch} />
-            <AccommodationList accommodations={this.state.accommodations} show_details={this.state.show_details} handle_click_details={this.handleClickDetails} />
+            <AccommodationList accommodations={this.state.accommodations}  handle_click_details={this.handleClickDetails} />
         </Fragment>
          </Provider>
         </div>

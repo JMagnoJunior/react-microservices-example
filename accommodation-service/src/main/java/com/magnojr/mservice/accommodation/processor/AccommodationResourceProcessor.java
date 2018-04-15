@@ -21,14 +21,21 @@ public class AccommodationResourceProcessor implements ResourceProcessor<Resourc
 	@Value("${schedule.resource.url}")
 	private String scheduleResourceUrl;
 
+	@Value("${reservation.resource.url}")
+	private String reservationResourceUrl;
+	
 	private final String SEARCH_ACCOMMODATION_PATH = "search/findByIdAccommodation?id_accommodation=";
 
+	private final String RESERVE_ACCOMMODATION_PATH =  "accommodation/";
+	
 	@Override
-	public Resource<Accommodation> process(Resource<Accommodation> scheduleResource) {
+	public Resource<Accommodation> process(Resource<Accommodation> customAccommodationResource) {
 
-		scheduleResource.add(new Link(
-				scheduleResourceUrl + SEARCH_ACCOMMODATION_PATH + scheduleResource.getContent().getId(), "schedules"));
+		customAccommodationResource.add(new Link(
+				scheduleResourceUrl + SEARCH_ACCOMMODATION_PATH + customAccommodationResource.getContent().getId(), "schedules"));
 
-		return scheduleResource;
+		customAccommodationResource.add(new Link(
+				reservationResourceUrl + RESERVE_ACCOMMODATION_PATH + customAccommodationResource.getContent().getId(), "reserve"));
+		return customAccommodationResource;
 	}
 }
