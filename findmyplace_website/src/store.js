@@ -7,7 +7,7 @@ const initialState = {
     },
     components: {
         accommodation: {
-
+            search_name : ""
         },
         reservation: {
             guest: "",
@@ -27,8 +27,12 @@ const initialState = {
 
 
 function searchAccommodation(state, action){       
-    if(action.data.accommodations != state.accommodations){
-        return { ...state,  api : { ...state.api, accommodations: action.data.accommodations } }
+    console.log("- - * * * * *   - - -")
+    console.log(action)
+    console.log(action.data.search_name)
+    console.log("- -  - - -")
+    if(action.data.accommodations.accommodations != state.api.accommodations){
+        return { ...state, components: { ...state.components, accommodation: { search_name: action.data.search_name } } , api : { ...state.api, accommodations: action.data.accommodations.accommodations } }
     }else{
         return { ...state}
     }

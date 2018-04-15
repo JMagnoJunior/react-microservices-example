@@ -11,10 +11,10 @@ export function SearchPanel(props){
                 <div className="form-inline" >
                     
                     <div className="form-group">
-                        <input type="text" onKeyPress={props.add} value={props.search_name} onChange={props.handle_search_name} />            
+                        <input type="text" onChange={props.add} value={props.search_name}  />            
                     </div>          
 
-                    <a onClick={props.add} className="ml-1 form-group btn btn-info"  >Search</a>
+                    {/* <a onClick={props.add} className="ml-1 form-group btn btn-info"  >Search</a> */}
                 </div>
             </div>        
         </div>
@@ -24,6 +24,6 @@ export function SearchPanel(props){
  export default connect(
     state => state,
     (dispatch, props) => ({
-        add: () =>  props.handle_click_search(dispatch, searchAccommodation)
+        add: (e) =>  props.handle_click_search(dispatch, e.target.value, searchAccommodation)
     })
 )(SearchPanel);

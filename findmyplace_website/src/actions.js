@@ -11,12 +11,13 @@ var instance = axios.create({
   });
 
 export  function searchAccommodation({ search_name } ){ 
+    console.log(search_name)
     return dispatch =>
     instance.get("accommodations/search/findByNameContainingIgnoreCase?name="+ search_name)
     .then(response => dispatch({
         type: "SEARCH_ACCOMMODATION" , 
-        data:response.data._embedded} 
-    ))
+        data: { "accommodations": response.data._embedded, "search_name": search_name } 
+    }))
 }
 
 export function getScheduleAccommodation({accommodation, uri_schedules}){

@@ -9,13 +9,13 @@ import {searchAccommodation} from "./actions"
 class AccommodationFinder extends Component {
     constructor(){
         super();
-        this.state = { search_name : "",  ...store.getState()} 
+        this.state = { ...store.getState().components.accommodation,  ...store.getState().api} 
     }
 
     componentWillMount() {
         store.dispatch(searchAccommodation({search_name : this.state.search_name })). then(() => {
             if(this.state != store.getState()){
-                this.setState({...store.getState()} )
+                this.setState({...store.getState().components.accommodation,  ...store.getState().api} )
             }                        
         })
     }
@@ -23,17 +23,12 @@ class AccommodationFinder extends Component {
     componentWillUnmount() {
      
     }
-
-    handleSearchChange = (e) => {
-        
-        this.setState({search_name: e.target.value});        
-        
-    }
-
-    handleClickSearch = (dispatch, searchAccommodation) => {
-        
-        dispatch(searchAccommodation({search_name : this.state.search_name })). then(() => {
-            this.setState({...store.getState()} )
+   
+    handleClickSearch = (dispatch, search_name, searchAccommodation) => {
+       
+        this.setState({search_name: search_name} )
+        dispatch(searchAccommodation({search_name : search_name })). then(() => {
+            this.setState({ ...store.getState().api} )
         })
         
     }
@@ -41,7 +36,7 @@ class AccommodationFinder extends Component {
     handleClickDetails = (dispatch,accommodation, getScheduleAccommodation) => {
         
         dispatch(getScheduleAccommodation({accommodation: accommodation, uri_schedules : accommodation._links.schedules})).then( ()=> {            
-            this.setState({ ...store.getState()})
+            this.setState({...store.getState().components.accommodation,  ...store.getState().api})
         })
         
     }
@@ -55,7 +50,7 @@ class AccommodationFinder extends Component {
             <SearchPanel search_name={this.state.search_name} 
                         handle_search_name={this.handleSearchChange} 
                         handle_click_search={this.handleClickSearch} />
-            <AccommodationList accommodations={this.state.api.accommodations}  handle_click_details={this.handleClickDetails} />
+            <AccommodationList accommodations={this.state.accommodations}  handle_click_details={this.handleClickDetails} />
         </Fragment>
          </Provider>
         </div>
