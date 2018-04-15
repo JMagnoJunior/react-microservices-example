@@ -8,18 +8,21 @@ export default class  Reservation extends Component{
     
     constructor(){
         super();
-        this.state = { 
-            guest: "",
-            passport: "",
-            totalPrice : 0 ,
-            start: new Date(),
-            end: new Date(),
-            showCalendar: true,
-            reserved: false,
-            error: false,
-            message: "",
+        this.state = {
+            ...store.getState()
+        }
+        // this.state = { 
+        //     guest: "",
+        //     passport: "",
+        //     totalPrice : 0 ,
+        //     start: new Date(),
+        //     end: new Date(),
+        //     showCalendar: true,
+        //     reserved: false,
+        //     error: false,
+        //     message: "",
 
-         } 
+        //  } 
 
     }
 
@@ -35,17 +38,17 @@ export default class  Reservation extends Component{
            
         let reservation = {
             "guest" : {
-                "name" : this.state.guest,
-                "passport" : this.state.passport
+                "name" : this.state.components.reservation.guest,
+                "passport" : this.state.components.reservation.passport
             },
             "periodReserved": {
-                "begin" : this.state.start.toISOString().substr(0,10),
-                "end" : this.state.end.toISOString().substr(0,10)
+                "begin" : this.state.components.reservation.start.toISOString().substr(0,10),
+                "end" : this.state.components.reservation.end.toISOString().substr(0,10)
             }
         }
 
         dispatch(confirmReserve({ "reservation": reservation, "uri_reserve": this.props.value._links.reserve} )).then(() =>{            
-            this.setState({ reserved: true})
+            this.setState( { ...this.state.components, components: {reservation:  { ... this.state.components.reservation, reserved: true} }  } )
         })
                 
     }
@@ -81,11 +84,11 @@ export default class  Reservation extends Component{
         } ).reduce((prev, cur) => {            
             return prev + cur
         })
-       this.setState({totalPrice: priceForDatesSelected, start: dates[0], end: dates[1], showCalendar: false})
+       this.setState( { ...this.state.components, components: { reservation: { ...this.state.components.reservation, totalPrice: priceForDatesSelected, start: dates[0], end: dates[1], showCalendar: false} }})
     }
 
     changeDate = () => {
-        this.setState({ showCalendar: true})
+        this.setState({ ...this.state.components, components:  { reservation: { ...this.state.components.reservation, showCalendar: true} } })
     }
 
     render = () => {
@@ -93,19 +96,19 @@ export default class  Reservation extends Component{
         let reserveDetails = null;                
         let showDetails = null; 
        
-        if( this.state.showCalendar){
+        if( this.state.components.reservation.showCalendar){
             dateSelector = <Calendar onChange={ this.selectDate } tileDisabled={this.disableDates}  returnValue="range" selectRange={true} />
         }
         else{
-            dateSelector = <button onClick={ this.changeDate } className="btn btn-success" > From: {this.state.start.toISOString().substring(0, 10)}, To: {this.state.end.toISOString().substring(0, 10)}</button>
+            dateSelector = <button onClick={ this.changeDate } className="btn btn-success" > From: {this.state.components.reservation.start.toISOString().substring(0, 10)}, To: {this.state.components.reservation.end.toISOString().substring(0, 10)}</button>
         }
-        if( !this.state.showCalendar){
+        if( !this.state.components.reservation.showCalendar){
             reserveDetails = ( 
-                    <ReservationDetails guest={this.state.guest} handleGuestInput={this.handleGuestInput} handlePassportInput={this.handlePassportInput} passport={this.state.passport} totalPrice={this.state.totalPrice} reserve={this.handleReservation} /> 
+                    <ReservationDetails guest={this.state.components.reservation.guest} handleGuestInput={this.handleGuestInput} handlePassportInput={this.handlePassportInput} passport={this.state.components.reservation.passport} totalPrice={this.state.components.reservation.totalPrice} reserve={this.handleReservation} /> 
                 )
         }
         
-        if( !this.state.reserved ){
+        if( !this.state.components.reserved ){
             showDetails = (
                 <div className="row">
                     <div className="col">

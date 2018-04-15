@@ -6,12 +6,21 @@ const initialState = {
         accommodations : [],
     },
     components: {
-        reservation: {
-
-        },
         accommodation: {
 
-        }
+        },
+        reservation: {
+            guest: "",
+            passport: "",
+            totalPrice : 0 ,
+            start: new Date(),
+            end: new Date(),
+            showCalendar: true,
+            reserved: false,
+            error: false,
+            message: "",
+        },
+        
     }
 }
 
@@ -39,7 +48,11 @@ function getScheduleAccommodation(state, action){
             return item
         }
     );        
-    return Object.assign({}, state.api, {accommodations: accommodations.toArray()})
+    return Object.assign({}, state, {...state, api :{accommodations: accommodations.toArray()} } )
+}
+
+function reserve(){
+    
 }
 
 
@@ -48,6 +61,7 @@ function reducer(state = initialState, action){
     switch (action.type){
         case "SEARCH_ACCOMMODATION": return searchAccommodation(state, action);
         case "GET_SCHEDULES": return getScheduleAccommodation(state, action);
+        case "RESERVE": return reserve(state, action);
         default: return state;
     }
 }
