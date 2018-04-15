@@ -38,7 +38,6 @@ function reducer(state = initialState, action){
     switch (action.type){
         case "SEARCH_ACCOMMODATION": return searchAccommodation(state, action);
         case "GET_SCHEDULES": return getScheduleAccommodation(state, action);
-        case "RESERVE": return state;
         default: return state;
     }
 }

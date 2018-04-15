@@ -1,10 +1,10 @@
 import React, { Component } from "react"; 
 import Calendar from 'react-calendar'
-import AccommodationReserveDetails from "./AccommodationReserveDetails"
+import ReservationDetails from "./ReservationDetails"
 import store from "./store"
 
 
-export default class  AccommodationDetails extends Component{
+export default class  Reservation extends Component{
     
     constructor(){
         super();
@@ -16,6 +16,8 @@ export default class  AccommodationDetails extends Component{
             end: new Date(),
             showCalendar: true,
             reserved: false,
+            error: false,
+            message: "",
         } ;
     }
 
@@ -27,12 +29,12 @@ export default class  AccommodationDetails extends Component{
         this.setState({passport: e.target.value});   
     }
 
-    handleReservation = (dispatch, confirmReserve) => {
-        
+    handleReservation = (dispatch, confirmReserve) => {     
+           
         let reservation = {
             "guest" : {
                 "name" : this.state.guest,
-                "passport" :    this.state.passport
+                "passport" : this.state.passport
             },
             "periodReserved": {
                 "begin" : this.state.start.toISOString().substr(0,10),
@@ -47,22 +49,15 @@ export default class  AccommodationDetails extends Component{
     }
 
     disableDates = ({date, view }) => {
-        let dates = this.props.value.schedules.map((s) =>  {  
-            
+        let dates = this.props.value.schedules.map((s) =>  {              
             if (s.avaliable){     
-                // console.log(new Date(s.date).toUTCString() )           
                 return new  Date(s.date)
             }
             else{
                 return null
             }
         } ).filter((d) => d != null );
-
-        var index = dates.findIndex(function(d) { 
-            
-            
-            // d.setHours(0, 0, 0, 0) 
-            
+            var index = dates.findIndex(function(d) {             
             return d.toUTCString().valueOf().substr(0, 16) === date.toUTCString().valueOf().substr(0, 16); 
         });
 
@@ -71,9 +66,6 @@ export default class  AccommodationDetails extends Component{
 
     selectDate = (dates) => {
         let schedules = this.props.value.schedules;
-
-        
-
         let priceForDatesSelected = schedules.map( (s) => {             
             let d = new Date(s.date)
             d.setHours(0, 0, 0, 0)  
@@ -96,7 +88,7 @@ export default class  AccommodationDetails extends Component{
 
     render = () => {
         let dateSelector = null; 
-        let price = null;                
+        let reserveDetails = null;                
         let showDetails = null; 
        
         if( this.state.showCalendar){
@@ -106,8 +98,8 @@ export default class  AccommodationDetails extends Component{
             dateSelector = <button onClick={ this.changeDate } className="btn btn-success" > From: {this.state.start.toISOString().substring(0, 10)}, To: {this.state.end.toISOString().substring(0, 10)}</button>
         }
         if( !this.state.showCalendar){
-            price = ( 
-                    <AccommodationReserveDetails guest={this.state.guest} handleGuestInput={this.handleGuestInput} handlePassportInput={this.handlePassportInput} passport={this.state.passport} totalPrice={this.state.totalPrice} reserve={this.handleReservation} /> 
+            reserveDetails = ( 
+                    <ReservationDetails guest={this.state.guest} handleGuestInput={this.handleGuestInput} handlePassportInput={this.handlePassportInput} passport={this.state.passport} totalPrice={this.state.totalPrice} reserve={this.handleReservation} /> 
                 )
         }
         
@@ -118,12 +110,12 @@ export default class  AccommodationDetails extends Component{
                     { dateSelector }
                     </div>
                     <div className="col">
-                        { price }
+                        { reserveDetails }
                     </div>
                 </div>
                 )
         } else{
-            showDetails = <div className="alert alert-success"> Success!!</div>
+            showDetails = <div className="alert alert-success"> Thank you! A confirmation will be sent to your email</div>
         }
 
         return(

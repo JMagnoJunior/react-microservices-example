@@ -1,12 +1,12 @@
 import React from "react"; 
-import AccommodationDetails from "./AccommodationDetails"
+import Reservation from "./Reservation/Reservation.js"
 import { connect } from "react-redux"
 import {getScheduleAccommodation} from "./actions"
 
 export  function Accommodation(props){
     var  element = <button type="button" onClick={props.getSchedule} className="btn btn-primary"> Details </button>    
     if(props.value.show_details){
-        element = <AccommodationDetails  value={props.value}  />
+        element = <Reservation  value={props.value}  />
     }
     return(
         <div className="card mb-2 " >       

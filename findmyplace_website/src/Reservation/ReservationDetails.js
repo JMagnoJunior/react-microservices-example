@@ -2,11 +2,10 @@ import React, {  Fragment } from "react";
 import { connect } from "react-redux"
 import {confirmReserve} from "./actions"
 
-export function AccommodationReserveDetails(props){
+export function ReservationDetails(props){
 
     return (
-        <Fragment >
-            >
+        <Fragment >            
                         <span >Total Price:  { props.totalPrice } </span>
                         <br />
                         <label  > Guest: </label> <input onChange={props.handleGuestInput} value={props.guest}/>
@@ -24,4 +23,4 @@ export default connect(
     (dispatch, props) => ({
         reserve: () =>  props.reserve(dispatch, confirmReserve)
     })
-)(AccommodationReserveDetails);
+)(ReservationDetails);
