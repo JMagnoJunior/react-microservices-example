@@ -1,7 +1,7 @@
 import React, { Component } from "react"; 
 import Calendar from 'react-calendar'
 import ReservationDetails from "./ReservationDetails"
-import store from "./store"
+import store from "./../store"
 
 
 export default class  Reservation extends Component{
@@ -18,7 +18,9 @@ export default class  Reservation extends Component{
             reserved: false,
             error: false,
             message: "",
-        } ;
+
+         } 
+
     }
 
     handleGuestInput = (e) => {

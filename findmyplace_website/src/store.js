@@ -2,14 +2,24 @@ import { createStore, applyMiddleware } from "redux"
 const { List } = require('immutable')
 
 const initialState = {
-    accommodations : [],
+    api: {
+        accommodations : [],
+    },
+    components: {
+        reservation: {
+
+        },
+        accommodation: {
+
+        }
+    }
 }
 
 
 
 function searchAccommodation(state, action){       
     if(action.data.accommodations != state.accommodations){
-        return { ...state, accommodations: action.data.accommodations }
+        return { ...state,  api : { ...state.api, accommodations: action.data.accommodations } }
     }else{
         return { ...state}
     }
@@ -18,7 +28,7 @@ function searchAccommodation(state, action){
 
 function getScheduleAccommodation(state, action){
     
-    var list = List(state.accommodations);    
+    var list = List(state.api.accommodations);    
     var accommodations = list.update(
         list.findIndex((item) => { 
             return JSON.stringify(item) === JSON.stringify(action.data.accommodation)    
@@ -29,7 +39,7 @@ function getScheduleAccommodation(state, action){
             return item
         }
     );        
-    return Object.assign({}, state, {accommodations: accommodations.toArray()})
+    return Object.assign({}, state.api, {accommodations: accommodations.toArray()})
 }
 
 

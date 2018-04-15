@@ -1,6 +1,7 @@
 
 import axios from "axios"
 
+
 var instance = axios.create({
     baseURL:  process.env.REACT_APP_ACCOMMODATION_SERVICE_URI ,
     auth: {
@@ -10,17 +11,8 @@ var instance = axios.create({
     
   });
 
-
-// export function getScheduleAccommodation({accommodation, uri_schedules}){
-//     return dispatch =>
-//     instance.get(uri_schedules.href).then(response => dispatch({
-//         type: "GET_SCHEDULES",
-//         data:{ "schedule":  response.data._embedded, "accommodation": accommodation }
-//     }))
-// }
-
 export function confirmReserve({reservation, uri_reserve}){
-    console.log(reservation)
+    
     return dispatch => 
     instance.post(uri_reserve.href, JSON.stringify(reservation), {
         headers: { 'Content-Type': 'application/json' }

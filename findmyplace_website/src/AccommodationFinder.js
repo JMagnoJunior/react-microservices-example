@@ -55,7 +55,7 @@ class AccommodationFinder extends Component {
             <SearchPanel search_name={this.state.search_name} 
                         handle_search_name={this.handleSearchChange} 
                         handle_click_search={this.handleClickSearch} />
-            <AccommodationList accommodations={this.state.accommodations}  handle_click_details={this.handleClickDetails} />
+            <AccommodationList accommodations={this.state.api.accommodations}  handle_click_details={this.handleClickDetails} />
         </Fragment>
          </Provider>
         </div>
