@@ -1,6 +1,6 @@
 # Find My Place - React Website
 
-# Introduction 
+### Introduction 
 
 I do not consider myself as a really good front end programmer, but still I know something about ReactJs, Javascript and Functional Programming. My main goal is to simplify the front end task providing a sofisiticated solution on the backend.
 
