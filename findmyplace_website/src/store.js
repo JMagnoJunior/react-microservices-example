@@ -1,6 +1,18 @@
 import { createStore, applyMiddleware } from "redux"
 const { List } = require('immutable')
 
+const new_reservation =  {
+    guest: "",
+    passport: "",
+    totalPrice : 0 ,
+    start: new Date(),
+    end: new Date(),
+    showCalendar: true,
+    reserved: false,
+    error: false,
+    message: "",
+};
+
 const initialState = {
     api: {
         accommodations : [],
@@ -9,28 +21,14 @@ const initialState = {
         accommodation: {
             search_name : ""
         },
-        reservation: {
-            guest: "",
-            passport: "",
-            totalPrice : 0 ,
-            start: new Date(),
-            end: new Date(),
-            showCalendar: true,
-            reserved: false,
-            error: false,
-            message: "",
-        },
-        
+        reservation: new_reservation,        
     }
 }
 
 
 
 function searchAccommodation(state, action){       
-    console.log("- - * * * * *   - - -")
-    console.log(action)
-    console.log(action.data.search_name)
-    console.log("- -  - - -")
+    
     if(action.data.accommodations.accommodations != state.api.accommodations){
         return { ...state, components: { ...state.components, accommodation: { search_name: action.data.search_name } } , api : { ...state.api, accommodations: action.data.accommodations.accommodations } }
     }else{
@@ -52,20 +50,42 @@ function getScheduleAccommodation(state, action){
             return item
         }
     );        
-    return Object.assign({}, state, {...state, api :{accommodations: accommodations.toArray()} } )
+    return Object.assign({}, state, 
+        {   ...state
+            , components: { ...state.components, reservation: new_reservation } 
+            , ...state.api
+            , api :{accommodations: accommodations.toArray() } 
+        })
 }
 
-function reserve(){
-    
+function reserve(state, action){
+    return {...state, 
+        components: { ...state.components, 
+            reservation: { ...state.components.reservation,  
+                           error: false,
+                           reserved: true, 
+                           message: "" }  
+        } 
+    }
 }
 
-
+function reserveFail(state, action){    
+    return {...state, 
+            components: { ...state.components, 
+                reservation: { ...state.components.reservation,  
+                               error: true,
+                               reserved: true, 
+                               message: action.data.error }  
+        } 
+    }
+}
 
 function reducer(state = initialState, action){    
     switch (action.type){
         case "SEARCH_ACCOMMODATION": return searchAccommodation(state, action);
         case "GET_SCHEDULES": return getScheduleAccommodation(state, action);
         case "RESERVE": return reserve(state, action);
+        case "RESERVE_FAIL": return reserveFail(state, action);
         default: return state;
     }
 }

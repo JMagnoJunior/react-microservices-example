@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import {searchAccommodation} from "./actions"
 
 
-export function SearchPanel(props){
+export function SearchAccommodation(props){
 
     return(
         <div className="row">
@@ -26,4 +26,4 @@ export function SearchPanel(props){
     (dispatch, props) => ({
         add: (e) =>  props.handle_click_search(dispatch, e.target.value, searchAccommodation)
     })
-)(SearchPanel);
+)(SearchAccommodation);

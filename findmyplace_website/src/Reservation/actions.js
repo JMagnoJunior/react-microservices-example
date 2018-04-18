@@ -20,5 +20,9 @@ export function confirmReserve({reservation, uri_reserve}){
  ).then(response => dispatch({
         type: "RESERVE",
         data:{"reservation": response.data}
-    }))
+    })).catch(e => { dispatch( {
+        type: "RESERVE_FAIL",
+        data: {"error": "Sorry. The operations was refused. Maybe the selected period is not available anymore"}
+    })
+    } )
 }

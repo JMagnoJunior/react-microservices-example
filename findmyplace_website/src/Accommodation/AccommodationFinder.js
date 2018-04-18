@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { withLayout } from "./Layout"
-import  SearchPanel   from "./SearchPanel"
+import { withLayout } from "./../Layout"
+import  SearchAccommodation   from "./SearchAccommodation"
 import AccommodationList from "./AccommodationList"
 import { Provider } from "react-redux";
-import store from "./store"
+import store from "./../store"
 import {searchAccommodation} from "./actions"
 
 class AccommodationFinder extends Component {
@@ -36,7 +36,7 @@ class AccommodationFinder extends Component {
     handleClickDetails = (dispatch,accommodation, getScheduleAccommodation) => {
         
         dispatch(getScheduleAccommodation({accommodation: accommodation, uri_schedules : accommodation._links.schedules})).then( ()=> {            
-            this.setState({...store.getState().components.accommodation,  ...store.getState().api})
+            this.setState({...store.getState().components,  ...store.getState().api})
         })
         
     }
@@ -47,7 +47,7 @@ class AccommodationFinder extends Component {
          <Provider store={store}>
          
          <Fragment>                
-            <SearchPanel search_name={this.state.search_name} 
+            <SearchAccommodation search_name={this.state.search_name} 
                         handle_search_name={this.handleSearchChange} 
                         handle_click_search={this.handleClickSearch} />
             <AccommodationList accommodations={this.state.accommodations}  handle_click_details={this.handleClickDetails} />

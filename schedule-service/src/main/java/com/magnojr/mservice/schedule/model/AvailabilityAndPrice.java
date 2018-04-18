@@ -43,7 +43,7 @@ public class AvailabilityAndPrice {
 	public void validate(Date start, Date end, List<Schedule> schedules) throws ScheduleException {
 		
 		List<Date> dates = schedules.stream().map((d) -> ( d.getDate() ) ).collect(Collectors.toList());
-
+		
 		if (!dates.contains(start)){
 			throw new ScheduleException("invalid start date");
 		}

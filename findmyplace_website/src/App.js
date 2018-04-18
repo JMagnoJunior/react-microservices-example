@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AccommodationFinder from './AccommodationFinder';
+import AccommodationFinder from './Accommodation/AccommodationFinder';
 
 class App extends Component {
   render() {

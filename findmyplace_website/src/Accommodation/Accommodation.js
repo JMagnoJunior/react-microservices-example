@@ -1,5 +1,5 @@
 import React from "react"; 
-import Reservation from "./Reservation/Reservation.js"
+import Reservation from "./../Reservation/Reservation.js"
 import { connect } from "react-redux"
 import {getScheduleAccommodation} from "./actions"
 

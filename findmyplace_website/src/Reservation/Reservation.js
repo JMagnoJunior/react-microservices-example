@@ -35,7 +35,7 @@ export default class  Reservation extends Component{
         }
 
         dispatch(confirmReserve({ "reservation": reservation, "uri_reserve": this.props.value._links.reserve} )).then(() =>{            
-            this.setState( { ...this.state, reserved: true}  )
+            this.setState( { ...store.getState().components.reservation}  )
         })
                 
     }
@@ -81,7 +81,7 @@ export default class  Reservation extends Component{
     render = () => {
         let dateSelector = null; 
         let reserveDetails = null;                
-        let showDetails = null; 
+        let display = null; 
        
         if( this.state.showCalendar){
             dateSelector = <Calendar onChange={ this.selectDate } tileDisabled={this.disableDates}  returnValue="range" selectRange={true} />
@@ -95,8 +95,8 @@ export default class  Reservation extends Component{
                 )
         }
         
-        if( !this.state.reserved ){
-            showDetails = (
+        if( !this.state.reserved){
+            display = (
                 <div className="row">
                     <div className="col">
                     { dateSelector }
@@ -106,13 +106,17 @@ export default class  Reservation extends Component{
                     </div>
                 </div>
                 )
-        } else{
-            showDetails = <div className="alert alert-success"> Thank you! A confirmation will be sent to your email</div>
+        } else  {
+            if(!this.state.error){
+                display = <div className="alert alert-success"> Thank you! A confirmation will be sent to your email</div>
+            }else{
+                display = <div className="alert alert-danger"> {this.state.message}</div>
+            }            
         }
 
         return(
             <div>
-            {showDetails}
+             {display}
             </div>
         )
     }
