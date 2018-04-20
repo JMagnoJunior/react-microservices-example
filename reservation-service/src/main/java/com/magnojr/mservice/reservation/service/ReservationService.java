@@ -1,13 +1,11 @@
 package com.magnojr.mservice.reservation.service;
 
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import com.magnojr.mservice.reservation.bean.AvailabilityAndPrice;
+import com.magnojr.mservice.reservation.bean.ReservationIntent;
 import com.magnojr.mservice.reservation.clients.ScheduleServiceProxy;
 import com.magnojr.mservice.reservation.exception.ReservationException;
 import com.magnojr.mservice.reservation.model.PeriodReserved;
@@ -24,26 +22,27 @@ public class ReservationService {
 	@Autowired
 	private ReservationRepository repository;
 
-	// @Autowired
-	// private RabbitTemplate rabbitTemplate;
-
 	@Autowired
 	ReservationMessageSender messageSender;
 
 	public Reservation reserve(Reservation reservation, Long accommodationId) {
 		Reservation result = null;
-		PeriodReserved period = reservation.getPeriodReserved();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		AvailabilityAndPrice verification = scheduleService.checkAvailability(accommodationId,
-				df.format(period.getBegin()), df.format(period.getEnd()));
 
-		if (verification.isAvailable()) {
-			reservation.setTotalPrice(verification.getPrice());
+		PeriodReserved period = reservation.getPeriodReserved();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		ReservationIntent reservationIntent = scheduleService.checkAvailability(accommodationId,
+				period.getBegin().format(formatter), period.getEnd().format(formatter));
+
+		if (reservationIntent.isAvailable()) {
+
+			reservation.setTotalPrice(reservationIntent.getPrice());
 			reservation.waitingConfirmation();
 			result = repository.save(reservation);
 			// send reservation to queue to informe schedule about this reserve
 			messageSender.sendMessage(result, accommodationId);
-		} else {			
+
+		} else {
 			throw new ReservationException();
 		}
 		return result;

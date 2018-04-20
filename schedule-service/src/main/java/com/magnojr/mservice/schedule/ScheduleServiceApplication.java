@@ -12,6 +12,7 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,6 +20,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootApplication
 @EnableRabbit
@@ -56,6 +59,11 @@ public class ScheduleServiceApplication implements RabbitListenerConfigurer {
 
 	@Bean
 	public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+//	    ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+//
+//	    Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter();
+//
+//	    return converter;
 		return new Jackson2JsonMessageConverter();
 	}
 
@@ -63,7 +71,7 @@ public class ScheduleServiceApplication implements RabbitListenerConfigurer {
 	public MappingJackson2MessageConverter consumerJackson2MessageConverter() {
 		return new MappingJackson2MessageConverter();
 	}
-
+	
 	@Bean
 	public DefaultMessageHandlerMethodFactory messageHandlerMethodFactory() {
 		DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();

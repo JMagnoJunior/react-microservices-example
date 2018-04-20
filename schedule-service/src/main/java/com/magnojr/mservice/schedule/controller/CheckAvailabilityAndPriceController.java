@@ -1,5 +1,6 @@
 package com.magnojr.mservice.schedule.controller;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class CheckAvailabilityAndPriceController {
 	ScheduleService service;
 
 	@RequestMapping(path = "/checkavailability/accommodations/{id}/from/{start}/to/{end}", method = RequestMethod.GET)
-	public AvailabilityAndPrice checkAvailabilityAndPrice(@PathVariable(value = "id")  Long id, @PathVariable(value = "start") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date start,
-			@PathVariable(value = "end") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date end) {
+	public AvailabilityAndPrice checkAvailabilityAndPrice(@PathVariable(value = "id")  Long id, @PathVariable(value = "start") @DateTimeFormat(pattern = "yyyy-MM-dd")  LocalDate start,
+			@PathVariable(value = "end") @DateTimeFormat(pattern = "yyyy-MM-dd")  LocalDate end) {
 		
 		return service.checkAvailabilityAndPrice(id, start, end);
 	}

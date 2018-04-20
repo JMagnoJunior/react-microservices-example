@@ -1,5 +1,6 @@
 package com.magnojr.mservice.schedule.repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +19,10 @@ public interface ScheduleRepository
 	List<Schedule> findByIdAccommodation(@Param("id_accommodation") Long idAccommodation);	
 
 	List<Schedule> findByDateAndIdAccommodation(
-			@Param("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date start, @Param("id_accommodation") Long idAccommodation);
+			@Param("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start, @Param("id_accommodation") Long idAccommodation);
 
 	List<Schedule> findByDateBetweenAndIdAccommodation(
-			@Param("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
-			@Param("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date end, @Param("id_accommodation") Long idAccommodation);
+			@Param("start") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
+			@Param("end") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end, @Param("id_accommodation") Long idAccommodation);
 
 }

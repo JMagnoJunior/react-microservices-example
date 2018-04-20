@@ -1,6 +1,6 @@
 package com.magnojr.mservice.reservation.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,27 +17,33 @@ public class PeriodReserved {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
-	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
-	@Temporal(TemporalType.DATE)
-	private Date begin;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
-	@Temporal(TemporalType.DATE)
-	private Date end;
 
-	public Date getBegin() {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")	
+	private LocalDate begin;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
+	private LocalDate end;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public LocalDate getBegin() {
 		return begin;
 	}
 
-	public void setBegin(Date begin) {
+	public void setBegin(LocalDate begin) {
 		this.begin = begin;
 	}
 
-	public Date getEnd() {
+	public LocalDate getEnd() {
 		return end;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(LocalDate end) {
 		this.end = end;
 	}
 

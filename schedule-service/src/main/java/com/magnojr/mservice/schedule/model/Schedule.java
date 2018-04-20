@@ -1,21 +1,21 @@
 package com.magnojr.mservice.schedule.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Entity
 public class Schedule {
@@ -24,9 +24,8 @@ public class Schedule {
 	@Id
 	private Long id;	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
-	@Temporal(TemporalType.DATE)
 	@NotNull
-	private Date date;
+	private LocalDate date;
 	@NotNull
 	private Boolean avaliable;	
 	@JsonProperty(access=Access.WRITE_ONLY)
@@ -38,7 +37,7 @@ public class Schedule {
 		super();
 	}
 	
-	public Schedule(@NotNull Date date, @NotNull Boolean avaliable, Long accommodation,
+	public Schedule(@NotNull LocalDate date, @NotNull Boolean avaliable, Long accommodation,
 			@NotNull BigDecimal price) {
 		super();
 		this.date = date;
@@ -52,12 +51,15 @@ public class Schedule {
 	public void setId(Long id) {
 		this.id = id;
 	}	
-	public Date getDate() {
+
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+
 	public Boolean getAvaliable() {
 		return avaliable;
 	}

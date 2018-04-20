@@ -1,7 +1,13 @@
 package com.magnojr.mservice.schedule.queue;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 public final class ReservationMessage implements Serializable {
 
@@ -11,8 +17,9 @@ public final class ReservationMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long reservationId;
 	private Long accommodationId;
-	private Date begin;
-	private Date end;
+
+	private String begin;
+	private String end;
 
 	// Default constructor is needed to deserialize JSON
 	public ReservationMessage() {
@@ -34,19 +41,29 @@ public final class ReservationMessage implements Serializable {
 		this.accommodationId = accommodationId;
 	}
 
-	public Date getBegin() {
+	public String getBegin() {
 		return begin;
 	}
+	
+	public LocalDate getBeginFormated(){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return LocalDate.parse(this.begin, formatter);
+	}
 
-	public void setBegin(Date begin) {
+	public void setBegin(String begin) {
 		this.begin = begin;
 	}
 
-	public Date getEnd() {
+	public String getEnd() {
 		return end;
 	}
+	
+	public LocalDate getEndFormated(){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return LocalDate.parse(this.end, formatter);
+	}
 
-	public void setEnd(Date end) {
+	public void setEnd(String end) {
 		this.end = end;
 	}
 

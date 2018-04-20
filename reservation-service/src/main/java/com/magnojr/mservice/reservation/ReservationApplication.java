@@ -24,6 +24,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @SpringBootApplication
 @EnableFeignClients("com.magnojr.mservice.reservation.clients")
 @ComponentScan({ "com.magnojr.mservice" })
@@ -69,7 +71,7 @@ public class ReservationApplication implements RabbitListenerConfigurer {
 
 	@Bean
 	public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
-		return new Jackson2JsonMessageConverter();
+		return new Jackson2JsonMessageConverter();	
 	}
 
 	public MappingJackson2MessageConverter consumerJackson2MessageConverter() {

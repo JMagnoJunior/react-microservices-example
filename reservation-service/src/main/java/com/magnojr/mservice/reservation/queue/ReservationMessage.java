@@ -1,6 +1,8 @@
 package com.magnojr.mservice.reservation.queue;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import com.magnojr.mservice.reservation.model.Reservation;
@@ -13,8 +15,8 @@ public final class ReservationMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long reservationId;
 	private Long accommodationId;
-	private Date begin;
-	private Date end;
+	private String begin;
+	private String end;
 
 	// Default constructor is needed to deserialize JSON
 	public ReservationMessage() {
@@ -23,8 +25,9 @@ public final class ReservationMessage implements Serializable {
 	public ReservationMessage(Reservation reservation, Long accommodationid) {
 		this.reservationId = reservation.getId();
 		this.accommodationId = accommodationid;
-		this.begin = reservation.getPeriodReserved().getBegin();
-		this.end = reservation.getPeriodReserved().getEnd();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		this.begin = reservation.getPeriodReserved().getBegin().format(formatter);
+		this.end = reservation.getPeriodReserved().getEnd().format(formatter);
 	}
 
 	public Long getReservationId() {
@@ -43,19 +46,21 @@ public final class ReservationMessage implements Serializable {
 		this.accommodationId = accommodationId;
 	}
 
-	public Date getBegin() {
+
+
+	public String getBegin() {
 		return begin;
 	}
 
-	public void setBegin(Date begin) {
+	public void setBegin(String begin) {
 		this.begin = begin;
 	}
 
-	public Date getEnd() {
+	public String getEnd() {
 		return end;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(String end) {
 		this.end = end;
 	}
 

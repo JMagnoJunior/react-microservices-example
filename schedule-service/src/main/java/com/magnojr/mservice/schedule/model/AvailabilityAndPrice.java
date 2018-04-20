@@ -1,7 +1,7 @@
 package com.magnojr.mservice.schedule.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,9 +40,9 @@ public class AvailabilityAndPrice {
 		this.setPrice(price.get());		
 	}
 
-	public void validate(Date start, Date end, List<Schedule> schedules) throws ScheduleException {
+	public void validate(LocalDate start, LocalDate end, List<Schedule> schedules) throws ScheduleException {
 		
-		List<Date> dates = schedules.stream().map((d) -> ( d.getDate() ) ).collect(Collectors.toList());
+		List<LocalDate> dates = schedules.stream().map((d) -> ( d.getDate() ) ).collect(Collectors.toList());
 		
 		if (!dates.contains(start)){
 			throw new ScheduleException("invalid start date");

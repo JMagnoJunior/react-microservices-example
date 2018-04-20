@@ -2,7 +2,7 @@ package com.magnojr.mservice.reservation.bean;
 
 import java.math.BigDecimal;
 
-public class AvailabilityAndPrice {
+public class ReservationIntent {
 
 	private boolean available;
 	private BigDecimal price;

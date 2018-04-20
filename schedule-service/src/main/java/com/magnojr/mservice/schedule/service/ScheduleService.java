@@ -1,7 +1,7 @@
 package com.magnojr.mservice.schedule.service;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class ScheduleService {
 	@Autowired
 	ScheduleMessageSender messageSender;
 	
-	public AvailabilityAndPrice checkAvailabilityAndPrice(Long id, Date start, Date end) {
+	public AvailabilityAndPrice checkAvailabilityAndPrice(Long id, LocalDate start, LocalDate end) {
 		AvailabilityAndPrice result = new AvailabilityAndPrice();
 		
 		List<Schedule> dates = repository.findByDateBetweenAndIdAccommodation(start, end, id);
@@ -32,7 +32,7 @@ public class ScheduleService {
 		return result;
 	}
 
-	public Boolean checkAndRegisterSchedule(Long id, Date start, Date end, Long reservationId) {
+	public Boolean reserveSchedule(Long id, LocalDate start, LocalDate end, Long reservationId) {
 		if(this.checkAvailabilityAndPrice(id, start, end).isAvailable()){
 			List<Schedule> list = repository.findByDateBetweenAndIdAccommodation(start, end, id);
 			list.forEach((schedule) -> {
