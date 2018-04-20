@@ -20,21 +20,33 @@ public class Accommodation {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@ApiModelProperty(hidden=true)
+	@ApiModelProperty(hidden = true)
 	private Long id;
 	@NotNull
-	@Size(min=2, message="A accommodation's name should have at least 2 characters")
-	@ApiModelProperty(required=true, notes="at least 2 characters")
+	@Size(min = 2, message = "A accommodation's name should have at least 2 characters")
+	@ApiModelProperty(required = true, notes = "at least 2 characters")
 	private String name;
-	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "id_location")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_location")
 	private Location location;
-	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "id_address")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_address")
 	private Address address;
-	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "id_image")	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_image")
 	private ImageAccommodation image;
+
+	public Accommodation(String name, Location location, Address address, ImageAccommodation image) {
+		super();
+		this.name = name;
+		this.location = location;
+		this.address = address;
+		this.image = image;
+	}
+
+	public Accommodation() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
@@ -42,7 +54,7 @@ public class Accommodation {
 
 	public void setId(Long id) {
 		this.id = id;
-	}	
+	}
 
 	public ImageAccommodation getImage() {
 		return image;
@@ -76,6 +88,4 @@ public class Accommodation {
 		this.address = address;
 	}
 
-
-	
 }

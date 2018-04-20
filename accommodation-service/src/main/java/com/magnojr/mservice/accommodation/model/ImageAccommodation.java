@@ -14,9 +14,18 @@ public class ImageAccommodation {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@ApiModelProperty(hidden=true)
+	@ApiModelProperty(hidden = true)
 	private Long id;
 	private String uri;
+
+	public ImageAccommodation(String uri) {
+		super();
+		this.uri = uri;
+	}
+
+	public ImageAccommodation() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
@@ -24,16 +33,6 @@ public class ImageAccommodation {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public ImageAccommodation() {
-		super();
-
-	}
-
-	public ImageAccommodation(String uri) {
-		super();
-		this.uri = uri;
 	}
 
 	public String getUri() {
