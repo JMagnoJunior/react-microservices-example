@@ -1,4 +1,4 @@
-package com.magnojr.mservice.accommodation;
+package com.magnojr.mservice.reservation;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;

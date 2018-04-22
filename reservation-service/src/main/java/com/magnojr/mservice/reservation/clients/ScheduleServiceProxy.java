@@ -11,7 +11,7 @@ import com.magnojr.mservice.reservation.bean.ReservationIntent;
 @FeignClient(name = "schedule", url = "${schedule.service.uri}", configuration = FeignClientConfiguration.class)
 public interface ScheduleServiceProxy {
 
-	@RequestMapping(path = "/checkavailability/accommodations/{id}/from/{start}/to/{end}", method = RequestMethod.GET)
+	@RequestMapping(path = "/reservation-intent/accommodations/{id}/from/{start}/to/{end}", method = RequestMethod.GET)
 	public ReservationIntent checkAvailability(@PathVariable(value = "id") Long id,
 			@PathVariable(value = "start") String start,
 			@PathVariable(value = "end")  String end);

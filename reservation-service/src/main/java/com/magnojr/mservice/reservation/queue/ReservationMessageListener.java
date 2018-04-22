@@ -7,30 +7,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.magnojr.mservice.reservation.model.Reservation;
-import com.magnojr.mservice.reservation.repository.ReservationRepository;
+import com.magnojr.mservice.reservation.repositoryresource.ReservationRepository;
 
 @Service
 public class ReservationMessageListener {
 
 	@Autowired
-	ReservationRepository repository;
+	private ReservationRepository repository;
 
 	@RabbitListener(queues = "${queue.schedule}")
 	public void receiveMessage(RegisterScheduleMessage message) {
 
-		if (message.getSuccess()) {
-			Optional<Reservation> r = repository.findById(message.getReservationId());
-			if (r.isPresent()) {
+		Optional<Reservation> r = repository.findById(message.getReservationId());
+		if (r.isPresent()) {
+			if (message.getSuccess()) {
 				Reservation reservation = r.get();
 				reservation.confirm();
 				repository.save(reservation);
 			} else {
-				Reservation reservation = r.get();
-				reservation.cancel();
-				repository.save(reservation);
+				cancel(r);
 			}
-
+		} else {
+			cancel(r);
 		}
 
+	}
+
+	private void cancel(Optional<Reservation> r) {
+		Reservation reservation = r.get();
+		reservation.cancel();
+		repository.save(reservation);
 	}
 }

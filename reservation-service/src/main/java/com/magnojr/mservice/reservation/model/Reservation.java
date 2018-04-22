@@ -32,6 +32,21 @@ public class Reservation {
 	
 	private StatusReservation status = StatusReservation.INITIAL;
 
+	
+	public Reservation(Guest guest, PeriodReserved periodReserved, Long accommodation_id, BigDecimal totalPrice) {
+		super();
+		this.guest = guest;
+		this.periodReserved = periodReserved;
+		this.accommodation_id = accommodation_id;
+		this.totalPrice = totalPrice;
+		this.status = StatusReservation.INITIAL;
+	}
+	
+	public Reservation() {
+		super();
+	}
+
+
 	public Long getId() {
 		return id;
 	}

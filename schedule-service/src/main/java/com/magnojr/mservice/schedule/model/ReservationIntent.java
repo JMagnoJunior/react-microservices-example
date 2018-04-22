@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import com.magnojr.mservice.schedule.exception.ScheduleException;
 
-public class AvailabilityAndPrice {
+public class ReservationIntent {
 
 	private boolean available;
 	private BigDecimal price;
@@ -40,7 +40,7 @@ public class AvailabilityAndPrice {
 		this.setPrice(price.get());		
 	}
 
-	public void validate(LocalDate start, LocalDate end, List<Schedule> schedules) throws ScheduleException {
+	public void check(LocalDate start, LocalDate end, List<Schedule> schedules) throws ScheduleException {
 		
 		List<LocalDate> dates = schedules.stream().map((d) -> ( d.getDate() ) ).collect(Collectors.toList());
 		

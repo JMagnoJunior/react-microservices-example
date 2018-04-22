@@ -11,7 +11,7 @@ import com.magnojr.mservice.reservation.exception.ReservationException;
 import com.magnojr.mservice.reservation.model.PeriodReserved;
 import com.magnojr.mservice.reservation.model.Reservation;
 import com.magnojr.mservice.reservation.queue.ReservationMessageSender;
-import com.magnojr.mservice.reservation.repository.ReservationRepository;
+import com.magnojr.mservice.reservation.repositoryresource.ReservationRepository;
 
 @Service
 public class ReservationService {
@@ -23,7 +23,7 @@ public class ReservationService {
 	private ReservationRepository repository;
 
 	@Autowired
-	ReservationMessageSender messageSender;
+	private ReservationMessageSender messageSender;
 
 	public Reservation reserve(Reservation reservation, Long accommodationId) {
 		Reservation result = null;
@@ -33,7 +33,6 @@ public class ReservationService {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		ReservationIntent reservationIntent = scheduleService.checkAvailability(accommodationId,
 				period.getBegin().format(formatter), period.getEnd().format(formatter));
-
 		if (reservationIntent.isAvailable()) {
 
 			reservation.setTotalPrice(reservationIntent.getPrice());

@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.magnojr.mservice.schedule.model.AvailabilityAndPrice;
+import com.magnojr.mservice.schedule.model.ReservationIntent;
 import com.magnojr.mservice.schedule.model.Schedule;
 import com.magnojr.mservice.schedule.queue.RegisterScheduleMessage;
 import com.magnojr.mservice.schedule.queue.ScheduleMessageSender;
@@ -22,18 +22,19 @@ public class ScheduleService {
 	@Autowired
 	ScheduleMessageSender messageSender;
 	
-	public AvailabilityAndPrice checkAvailabilityAndPrice(Long id, LocalDate start, LocalDate end) {
-		AvailabilityAndPrice result = new AvailabilityAndPrice();
+	public ReservationIntent checkReservationIntent(Long id, LocalDate start, LocalDate end) {
+		ReservationIntent reservationIntent = new ReservationIntent();
 		
 		List<Schedule> dates = repository.findByDateBetweenAndIdAccommodation(start, end, id);
-		result.validate(start, end, dates);
-		result.addDatesInformed(dates);
+		reservationIntent.check(start, end, dates);
+		reservationIntent.addDatesInformed(dates);
 
-		return result;
+		return reservationIntent;
 	}
 
 	public Boolean reserveSchedule(Long id, LocalDate start, LocalDate end, Long reservationId) {
-		if(this.checkAvailabilityAndPrice(id, start, end).isAvailable()){
+		boolean success = false;
+		if(this.checkReservationIntent(id, start, end).isAvailable()){
 			List<Schedule> list = repository.findByDateBetweenAndIdAccommodation(start, end, id);
 			list.forEach((schedule) -> {
 				schedule.reserved();				
@@ -41,11 +42,11 @@ public class ScheduleService {
 			repository.saveAll(list);
 			// send schedule confirmation to queue
 			messageSender.sendMessage(new RegisterScheduleMessage(reservationId, true));
-			return true;
+			success = true;
 		}else{
 			messageSender.sendMessage(new RegisterScheduleMessage(reservationId, false));
 		}
-		return  false;
+		return success;
 	}
 
 }

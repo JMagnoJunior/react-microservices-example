@@ -20,10 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.magnojr.mservice.accommodation.JpaDataConfiguration;
 import com.magnojr.mservice.accommodation.configuration.TestJpaConfiguration;
 import com.magnojr.mservice.accommodation.configuration.TestRestConfiguration;
-import com.magnojr.mservice.accommodation.model.Accommodation;
-import com.magnojr.mservice.accommodation.model.Address;
-import com.magnojr.mservice.accommodation.model.ImageAccommodation;
-import com.magnojr.mservice.accommodation.model.Location;
 import com.magnojr.mservice.accommodation.processor.AccommodationResourceProcessor;
 
 @RunWith(SpringRunner.class)

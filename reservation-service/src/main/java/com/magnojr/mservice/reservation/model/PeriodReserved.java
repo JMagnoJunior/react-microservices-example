@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,10 +16,20 @@ public class PeriodReserved {
 	@Id
 	private Long id;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
 	private LocalDate begin;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
 	private LocalDate end;
+
+	public PeriodReserved() {
+		super();
+	}
+
+	public PeriodReserved(LocalDate begin, LocalDate end) {
+		super();
+		this.begin = begin;
+		this.end = end;
+	}
 
 	public Long getId() {
 		return id;

@@ -11,6 +11,15 @@ public class RegisterScheduleMessage implements Serializable {
 	private Long reservationId;
 	private Boolean success;
 
+	public RegisterScheduleMessage(long l, boolean b) {
+		this.reservationId = l;
+		this.success = b;
+	}
+
+	public RegisterScheduleMessage() {
+		super();
+	}
+
 	public Long getReservationId() {
 		return reservationId;
 	}
@@ -26,7 +35,5 @@ public class RegisterScheduleMessage implements Serializable {
 	public void setSuccess(Boolean success) {
 		this.success = success;
 	}
-
-
 
 }
