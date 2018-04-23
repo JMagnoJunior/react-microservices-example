@@ -1,7 +1,9 @@
 package com.magnojr.mservice.reservation.service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.magnojr.mservice.reservation.clients.ScheduleServiceProxy;
 import com.magnojr.mservice.reservation.exception.ReservationException;
 import com.magnojr.mservice.reservation.model.PeriodReserved;
 import com.magnojr.mservice.reservation.model.Reservation;
+import com.magnojr.mservice.reservation.queue.RegisterScheduleMessage;
 import com.magnojr.mservice.reservation.queue.ReservationMessageSender;
 import com.magnojr.mservice.reservation.repositoryresource.ReservationRepository;
 
@@ -24,6 +27,19 @@ public class ReservationService {
 
 	@Autowired
 	private ReservationMessageSender messageSender;
+
+	@Autowired
+	public ReservationService(ScheduleServiceProxy scheduleService, ReservationRepository repository,
+			ReservationMessageSender messageSender) {
+		super();
+		this.scheduleService = scheduleService;
+		this.repository = repository;
+		this.messageSender = messageSender;
+	}
+
+	public ReservationService() {
+		super();
+	}
 
 	public Reservation reserve(Reservation reservation, Long accommodationId) {
 		Reservation result = null;
@@ -45,5 +61,29 @@ public class ReservationService {
 			throw new ReservationException();
 		}
 		return result;
+	}
+	
+	@RabbitListener(queues = "${queue.schedule}")
+	public void receiveMessage(RegisterScheduleMessage message) {
+
+		Optional<Reservation> r = repository.findById(message.getReservationId());
+		if (r.isPresent()) {
+			if (message.getSuccess()) {
+				Reservation reservation = r.get();
+				reservation.confirm();
+				repository.save(reservation);
+			} else {
+				cancel(r);
+			}
+		} else {
+			cancel(r);
+		}
+
+	}
+
+	private void cancel(Optional<Reservation> r) {
+		Reservation reservation = r.get();
+		reservation.cancel();
+		repository.save(reservation);
 	}
 }

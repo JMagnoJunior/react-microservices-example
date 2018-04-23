@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.equalTo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,17 +24,18 @@ import com.magnojr.mservice.reservation.model.Guest;
 import com.magnojr.mservice.reservation.model.PeriodReserved;
 import com.magnojr.mservice.reservation.model.Reservation;
 import com.magnojr.mservice.reservation.model.StatusReservation;
+import com.magnojr.mservice.reservation.queue.RegisterScheduleMessage;
 import com.magnojr.mservice.reservation.queue.ReservationMessageSender;
 import com.magnojr.mservice.reservation.repositoryresource.ReservationRepository;
 
 @RunWith(SpringRunner.class)
-public class ReservationServiceTest {
+public class ReservationServiceIntegrationTest {
 
 	@MockBean
-	private ReservationRepository repository;
+	ReservationRepository repository;
 
 	@MockBean
-	private ScheduleServiceProxy scheduleService;
+	ScheduleServiceProxy scheduleService;
 
 	@MockBean
 	ReservationMessageSender messageSender;
@@ -44,10 +46,23 @@ public class ReservationServiceTest {
 	long ACCOMMODATION_ID = 1L;
 	String START_VALID_DATE = "2018-04-01";
 	String END_VALID_DATE = "2018-04-03";
+	private long RESERVATION_ID = 1L;
 
+	Reservation reservation;
+	
 	@Before
 	public void setUp() {
+		Guest guest = new Guest();
+		LocalDate start = LocalDate.parse(START_VALID_DATE, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate end = LocalDate.parse(END_VALID_DATE, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		PeriodReserved periodReserved = new PeriodReserved(start, end);
+		reservation = new Reservation(guest, periodReserved, 1L, new BigDecimal("100"));
 
+		Mockito.when(repository.save(reservation))
+		.thenReturn(reservation);
+		
+		Mockito.when(repository.findById(RESERVATION_ID)).thenReturn(Optional.of(reservation));
+		
 		ReservationIntent validIntent = new ReservationIntent(true, new BigDecimal("300"));
 		Mockito.when(scheduleService.checkAvailability(ACCOMMODATION_ID, START_VALID_DATE, END_VALID_DATE))
 				.thenReturn(validIntent);
@@ -65,15 +80,31 @@ public class ReservationServiceTest {
 
 	@Test
 	public void whenReserve_shouldHaveStatusWaiting() {
-		Guest guest = new Guest();
-		LocalDate start = LocalDate.parse(START_VALID_DATE, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		LocalDate end = LocalDate.parse(END_VALID_DATE, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		PeriodReserved periodReserved = new PeriodReserved(start, end);
-		Reservation reservation = new Reservation(guest, periodReserved, 1L, new BigDecimal("100"));
-
-		reservationService.reserve(reservation, 1L);
 		
-		assertThat(reservation.getStatus(), equalTo(StatusReservation.WAITING) );
+
+		Reservation result = reservationService.reserve(reservation, 1L);
+		
+		assertThat(result.getStatus(), equalTo(StatusReservation.WAITING) );
+	}
+	
+	@Test
+	public void whenReceiveAMessageConfirmationAndItIsValid_ShouldChangeStatusToConfirmed() {
+
+		RegisterScheduleMessage message = new RegisterScheduleMessage(RESERVATION_ID, true);
+		reservationService.receiveMessage(message);
+
+		assertThat(reservation.getStatus(), equalTo(StatusReservation.CONFIRMED));
+
+	}
+
+	@Test
+	public void whenReceiveAMessageConfirmationAndItIsInvalid_ShouldChangeStatusToCancelled() {
+
+		RegisterScheduleMessage message = new RegisterScheduleMessage(RESERVATION_ID, false);
+		reservationService.receiveMessage(message);
+
+		assertThat(reservation.getStatus(), equalTo(StatusReservation.CANCELLED));
+
 	}
 
 }

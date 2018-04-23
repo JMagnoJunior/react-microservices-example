@@ -28,7 +28,7 @@ import com.magnojr.mservice.reservation.repositoryresource.ReservationRepository
 @SpringBootTest
 @ContextConfiguration(classes = { JpaDataConfiguration.class, TestJpaConfiguration.class, TestRestConfiguration.class })
 @DataJpaTest
-public class ReservationControllerTest {
+public class ReservationControllerIntegrationTest {
 
 	// @Autowired
 	// ReservationRepository repository;
