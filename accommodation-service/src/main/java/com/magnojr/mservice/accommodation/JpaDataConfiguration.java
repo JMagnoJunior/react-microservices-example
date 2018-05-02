@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.magnojr.mservice.reservation.repositoryresource"})
-@EntityScan(basePackages = {"com.magnojr.mservice.reservation.model"})
+@EnableJpaRepositories(basePackages = {"com.magnojr.mservice.accommodation.repositoryresource"})
+@EntityScan(basePackages = {"com.magnojr.mservice.accommodation.model"})
 public class JpaDataConfiguration {
 
 }
